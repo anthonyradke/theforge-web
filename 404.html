@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missed the lift — The Forge Strength Club</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500&display=swap">
+<!--
+  This page is intentionally self-contained (no external CSS/JS).
+  GitHub Pages serves it for any missing URL at any depth, where relative
+  asset paths would break.
+-->
+<style>
+  :root{
+    --ember:#D8232A; --ink:#0A0A0B; --steel-900:#131518; --steel-700:#262A30;
+    --bone:#EDEBE6; --bone-dim:#B9B7B1; --smoke:#8B9099;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0; min-height:100svh;
+    display:grid; place-items:center;
+    padding:2rem 1.5rem;
+    background:
+      radial-gradient(80% 60% at 50% 0%, rgba(216,35,42,.14), transparent 60%),
+      linear-gradient(180deg,#0E0F11,var(--ink) 70%);
+    color:var(--bone-dim);
+    font:400 1rem/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    text-align:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .box{max-width:600px}
+  .mark{width:96px;height:auto;margin:0 auto 2rem;display:block;opacity:.95}
+  .code{
+    margin:0 0 .5rem;
+    font:400 clamp(5rem,20vw,9rem)/1 Anton,"Arial Narrow",Impact,sans-serif;
+    letter-spacing:.02em;
+    background:linear-gradient(172deg,#FFF 6%,#CFD2D7 28%,#82878F 54%,#EDEFF2 70%,#737880 92%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  h1{
+    margin:0 0 1.1rem;
+    color:var(--bone);
+    font:400 clamp(1.6rem,4.5vw,2.4rem)/1 Anton,"Arial Narrow",Impact,sans-serif;
+    letter-spacing:.03em; text-transform:uppercase;
+  }
+  h1 em{color:var(--ember);font-style:normal}
+  p{margin:0 0 2rem;font-size:1.02rem}
+  .verse{
+    margin:2.5rem auto 0; max-width:26rem; padding-top:1.75rem;
+    border-top:1px solid var(--steel-700);
+    color:var(--smoke); font-size:.9rem; font-style:italic;
+  }
+  .verse b{
+    display:block; margin-top:.5rem;
+    font:700 .72rem/1 "Barlow Condensed",sans-serif;
+    letter-spacing:.22em; text-transform:uppercase; font-style:normal;
+    color:var(--bone-dim);
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:1.05rem 2rem;
+    border:1px solid var(--ember); border-radius:3px;
+    background:var(--ember); color:#fff; text-decoration:none;
+    font:700 .88rem/1 "Barlow Condensed",sans-serif;
+    letter-spacing:.16em; text-transform:uppercase;
+    box-shadow:0 10px 30px -14px rgba(216,35,42,.7);
+    transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .3s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(216,35,42,.7)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <div class="box">
+    <svg class="mark" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="#F3F1EC">
+        <path d="M88 4h24v22h30v24h-30v50H88V50H58V26h30V4z"/>
+        <path d="M2 96C22 84 40 79 60 78h116l10 7-2 20H60C40 104 22 102 2 96z"/>
+        <path d="M80 105h40l9 21H71z"/>
+        <path d="M58 126h84l10 18H48z"/>
+      </g>
+      <path fill="#D8232A" d="M100 150c10 14 16 22 16 30 0 9-7 15-16 15s-16-6-16-15c0-6 3-10 7-14 1 6 3 9 6 11-3-10 0-19 3-27z"/>
+    </svg>
+
+    <p class="code">404</p>
+    <h1>Failed rep. <em>Reset and go again.</em></h1>
+    <p>
+      This page isn't on the floor. Maybe the link was mistyped, maybe we moved it —
+      either way, nothing here to lift.
+    </p>
+
+    <a class="btn" id="home" href="./">Back to The Forge</a>
+
+    <p class="verse">
+      &ldquo;For though the righteous fall seven times, they rise again.&rdquo;
+      <b>Proverbs 24:16</b>
+    </p>
+  </div>
+
+<script>
+  // GitHub Pages serves this file for missing URLs at any depth, so work out
+  // where "home" actually is instead of guessing with a relative path.
+  (function () {
+    var parts = location.pathname.split('/').filter(Boolean);
+    var isProjectPage = /\.github\.io$/.test(location.hostname) && parts.length > 0;
+    document.getElementById('home').setAttribute('href', isProjectPage ? '/' + parts[0] + '/' : '/');
+  })();
+</script>
+</body>
+</html>

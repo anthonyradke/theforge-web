@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0F11"/>
+      <stop offset="1" stop-color="#0A0A0B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="18%" r="55%">
+      <stop offset="0" stop-color="#D8232A" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#D8232A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".3" stop-color="#CFD2D7"/>
+      <stop offset=".55" stop-color="#82878F"/>
+      <stop offset=".72" stop-color="#EDEFF2"/>
+      <stop offset="1" stop-color="#737880"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- mark -->
+  <g transform="translate(866 172) scale(1.32)">
+    <g fill="#F3F1EC">
+      <path d="M88 4h24v22h30v24h-30v50H88V50H58V26h30V4z"/>
+      <path d="M2 96C22 84 40 79 60 78h116l10 7-2 20H60C40 104 22 102 2 96z"/>
+      <path d="M80 105h40l9 21H71z"/>
+      <path d="M58 126h84l10 18H48z"/>
+    </g>
+    <path fill="#D8232A" d="M100 150c10 14 16 22 16 30 0 9-7 15-16 15s-16-6-16-15c0-6 3-10 7-14 1 6 3 9 6 11-3-10 0-19 3-27z"/>
+  </g>
+
+  <g font-family="Anton, 'Arial Narrow', Impact, sans-serif" text-transform="uppercase">
+    <rect x="84" y="140" width="54" height="4" fill="#D8232A"/>
+    <text x="150" y="148" fill="#D8232A" font-family="'Barlow Condensed', 'Arial Narrow', sans-serif"
+          font-size="24" font-weight="700" letter-spacing="7">GREENVILLE, SOUTH CAROLINA</text>
+
+    <text x="84" y="268" fill="url(#steel)" font-size="104" letter-spacing="1">FORGED IN FAITH.</text>
+    <text x="84" y="376" fill="#D8232A" font-size="104" letter-spacing="1">BUILT IN STRENGTH.</text>
+
+    <text x="84" y="452" fill="#EDEBE6" font-size="58" letter-spacing="2">THE FORGE STRENGTH CLUB</text>
+  </g>
+
+  <rect x="84" y="500" width="3" height="60" fill="#D8232A"/>
+  <text x="106" y="527" fill="#B9B7B1" font-family="Inter, system-ui, sans-serif" font-size="22"
+        font-style="italic">&#8220;As iron sharpens iron, so one person sharpens another.&#8221;</text>
+  <text x="106" y="554" fill="#8B9099" font-family="'Barlow Condensed', sans-serif" font-size="19"
+        font-weight="700" letter-spacing="4">PROVERBS 27:17</text>
+</svg>
