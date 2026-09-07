@@ -192,8 +192,16 @@ ember effect switch off) · print stylesheet · Open Graph tags for link preview
 - The mobile menu lives inside `.site-header`, which is a stacking context, so
   `body.nav-open .site-header` lifts it above the backdrop. If you change any
   `z-index` around the header, re-check that the drawer still sits on top.
-- Opening the menu locks the page with `position: fixed` and restores the scroll
-  position on close (`overflow-anchor: none` keeps it exact).
+- Opening the menu **never moves the page**. It uses `overflow: hidden` plus a
+  `touchmove` guard in `main.js`, deliberately not `position: fixed` — taking the
+  body out of flow resets the scroll to 0 and any drift in restoring it drops you
+  somewhere else on the page. Don't reintroduce a fixed-body lock.
+- The sticky bar is **solid** on mobile and translucent-with-blur only on
+  desktop. A translucent bar lets the page show through as it scrolls past, and
+  `backdrop-filter` on a sticky element causes compositing artefacts on phones.
+- The page-wide grain overlay (`body::after`) is **off** below 940 px. It's a
+  fixed full-viewport layer, and mobile URL bars showing/hiding leave it
+  misaligned as a faint darker band across the bottom of the screen.
 
 ---
 
