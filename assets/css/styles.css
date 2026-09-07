@@ -335,6 +335,11 @@ em { font-style: italic; }
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom-color: var(--steel-800);
 }
+/* Without backdrop-filter the bar is just 86% transparent and you watch the
+   page slide through it, so fall back to a solid bar. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.is-stuck { background: var(--ink); }
+}
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -1510,7 +1515,25 @@ em { font-style: italic; }
 }
 
 @media (max-width: 940px) {
-  html { scroll-padding-top: 76px; }
+  html { scroll-padding-top: 84px; }
+
+  /* On phones the sticky bar is solid, not translucent. A blurred 86% bar
+     still shows the page sliding underneath it, which reads as broken, and
+     backdrop-filter on a sticky element is a known source of compositing
+     artefacts on mobile. Keep the full height too, for more coverage. */
+  .site-header.is-stuck {
+    background: var(--ink);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .site-header.is-stuck .site-header__inner { min-height: 74px; }
+
+  /* The page-wide grain is a fixed, full-viewport overlay. Mobile browsers
+     size fixed elements to the large viewport, so as the URL bar shows and
+     hides it stops lining up and leaves a faintly darker band across the
+     bottom of the screen. It's invisible at this size anyway — drop it, and
+     save the constant repaint while scrolling. */
+  body::after { display: none; }
 
   /* Mobile drawer
      .site-header is position:sticky with a z-index, so it creates a stacking
@@ -1540,6 +1563,9 @@ em { font-style: italic; }
     transform: translateX(100%);
     visibility: hidden;
     transition: transform .42s var(--e-out), visibility .42s;
+    /* Promote to its own layer so the slide is a pure compositor transform
+       and the panel paints in one piece instead of filling in as it moves. */
+    will-change: transform;
     /* Short screens (landscape phones) must still reach every link. */
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -1559,27 +1585,27 @@ em { font-style: italic; }
   .nav__cta { justify-content: center; }
   .nav-toggle { display: grid; place-items: center; z-index: 57; }
 
-  /* Sits above the page but below the header/drawer (56). */
-  /* position:fixed (not just overflow:hidden) is what actually stops iOS from
-     scrolling the page behind the drawer; main.js pins `top` to the current
-     offset so the page doesn't jump to the top and back. */
-  body.nav-open {
-    position: fixed;
-    width: 100%;
-    overflow: hidden;
-    /* Without this the browser re-anchors on the fixed→static switch and the
-       page lands ~10px off where it was when the menu opened. */
-    overflow-anchor: none;
-  }
+  /* Background scroll is stopped with overflow plus a touchmove guard in
+     main.js — deliberately NOT position:fixed. Taking the body out of flow
+     resets the scroll to 0 and needs restoring afterwards, and any drift in
+     that restore dumps you somewhere else on the page entirely. Leaving the
+     page where it is means there is nothing to restore and nothing to drift. */
+  body.nav-open { overflow: hidden; }
+
+  /* Sits above the page but below the header/drawer (56).
+     No backdrop-filter: blurring the whole viewport is expensive enough on a
+     phone that it lands a frame or two after the panel, which is what made
+     the menu appear to open in two pieces. A flat dim composites instantly. */
   body.nav-open::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: 54;
-    background: rgba(0,0,0,.65);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    background: rgba(0,0,0,.74);
+    opacity: 0;
+    animation: scrimIn .28s var(--e-out) forwards;
   }
+  @keyframes scrimIn { to { opacity: 1; } }
 
   .hero__inner { grid-template-columns: 1fr; }
   .hero__badge { display: none; }

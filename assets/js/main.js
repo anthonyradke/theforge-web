@@ -50,35 +50,36 @@ const CONFIG = {
   const navToggle = $('#navToggle');
 
   if (nav && navToggle) {
-    // Locking <body> with overflow:hidden makes the page jump to the top on
-    // iOS unless the scroll offset is pinned while the drawer is open.
-    let lockedScrollY = 0;
-
     const isOpen = () => nav.classList.contains('is-open');
+
+    // Stops the page behind the drawer from scrolling on touch, without taking
+    // the body out of flow. Anything inside the drawer still scrolls normally.
+    const blockBackgroundScroll = (e) => {
+      const t = e.target;
+      if (!(t instanceof Element) || !t.closest('#nav')) e.preventDefault();
+    };
 
     const setNav = (open) => {
       if (open === isOpen()) return;
-
-      if (open) {
-        lockedScrollY = window.scrollY;
-        document.body.style.top = `-${lockedScrollY}px`;
-      }
 
       nav.classList.toggle('is-open', open);
       document.body.classList.toggle('nav-open', open);
       navToggle.setAttribute('aria-expanded', String(open));
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 
-      if (!open) {
-        document.body.style.top = '';
-        // Force the document back to full height before scrolling, otherwise
-        // the target can clamp against the still-collapsed page.
-        void document.body.offsetHeight;
-        window.scrollTo(0, lockedScrollY);
+      if (open) {
+        document.addEventListener('touchmove', blockBackgroundScroll, { passive: false });
+      } else {
+        document.removeEventListener('touchmove', blockBackgroundScroll, { passive: false });
       }
     };
 
-    navToggle.addEventListener('click', () => setNav(!isOpen()));
+    // Close on the toggle without letting the tap reach the page behind it.
+    navToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setNav(!isOpen());
+    });
 
     // Close on link tap, Escape, or a click on the backdrop.
     nav.addEventListener('click', (e) => {
