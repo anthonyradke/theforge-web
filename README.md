@@ -20,7 +20,7 @@ The site now reflects real, confirmed information. A few things remain to fill i
 | Founder section | `Owner photo` frame | Jonathan's Forge owner photo |
 | About section | 3 photo frames | Gym floor, powerlifting section, community shots |
 | Contact + footer + JSON-LD | `hello@theforgestrengthclub.com` | The real email address |
-| Contact | Social links are `href="#"` | Real Instagram / Facebook / YouTube URLs |
+| Contact | Facebook + YouTube markup is commented out | Uncomment and paste the URLs once those accounts exist |
 | Founder section | `<!-- TODO -->` comment in the bio | The longer "Meet the Owner" story, if you want more depth |
 
 **Deliberately not on the site yet**, because it isn't final — don't add it back

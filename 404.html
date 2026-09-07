@@ -45,6 +45,9 @@
     letter-spacing:.02em;
     background:linear-gradient(172deg,#FFF 6%,#CFD2D7 28%,#82878F 54%,#EDEFF2 70%,#737880 92%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
+    /* background-clip:text paints only inside the box; Anton overflows a 1.0
+       line box, which clips the digits. Pad the paint area, then pull it back. */
+    padding-block:.3em; margin-block:-.3em .2rem;
   }
   h1{
     margin:0 0 1.1rem;

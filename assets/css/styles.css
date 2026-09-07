@@ -587,13 +587,16 @@ em { font-style: italic; }
 .stat:first-child { border-left: 0; }
 .stat__num {
   display: block;
-  margin-bottom: .35rem;
   font: 400 clamp(1.9rem, 4.2vw, 3.1rem)/1 var(--f-display);
   letter-spacing: .01em;
   background: linear-gradient(175deg, #FFF 6%, #CFD2D7 30%, #82878F 56%, #EDEFF2 70%, #737880 92%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* Same clipping fix as .club__number — see the note there. */
+  padding-block: .3em;
+  margin-block: -.3em;
+  margin-bottom: calc(.35rem - .3em);
 }
 .stat__label {
   color: var(--smoke);
@@ -735,6 +738,19 @@ em { font-style: italic; }
   overflow: hidden;
 }
 .pillars--three { grid-template-columns: repeat(3, 1fr); }
+
+/* Each pillar shares the grid's rows so the divider under the one-line summary
+   lands at the same height in all three, however many lines each wraps to.
+   Rows: num · title · summary · body. */
+@supports (grid-template-rows: subgrid) {
+  .pillars--three { grid-template-rows: repeat(4, auto); }
+  .pillars--three .pillar {
+    grid-row: span 4;
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+}
+
 .pillar {
   position: relative;
   padding: clamp(1.8rem, 3.4vw, 2.6rem);
@@ -1002,6 +1018,12 @@ em { font-style: italic; }
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 3px 10px rgba(0,0,0,.6));
+  /* background-clip:text only paints inside the element's box, and Anton's
+     glyphs overflow a .88 line box top and bottom — which sliced the tops and
+     bottoms off digits like 0 and 6. Padding grows the paint area; the matching
+     negative margin keeps the layout spacing exactly where it was. */
+  padding-block: .4em;
+  margin-block: -.4em;
 }
 .club__name {
   color: var(--ember);
