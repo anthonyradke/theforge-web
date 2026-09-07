@@ -50,16 +50,35 @@ const CONFIG = {
   const navToggle = $('#navToggle');
 
   if (nav && navToggle) {
+    // Locking <body> with overflow:hidden makes the page jump to the top on
+    // iOS unless the scroll offset is pinned while the drawer is open.
+    let lockedScrollY = 0;
+
+    const isOpen = () => nav.classList.contains('is-open');
+
     const setNav = (open) => {
+      if (open === isOpen()) return;
+
+      if (open) {
+        lockedScrollY = window.scrollY;
+        document.body.style.top = `-${lockedScrollY}px`;
+      }
+
       nav.classList.toggle('is-open', open);
       document.body.classList.toggle('nav-open', open);
       navToggle.setAttribute('aria-expanded', String(open));
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+
+      if (!open) {
+        document.body.style.top = '';
+        // Force the document back to full height before scrolling, otherwise
+        // the target can clamp against the still-collapsed page.
+        void document.body.offsetHeight;
+        window.scrollTo(0, lockedScrollY);
+      }
     };
 
-    navToggle.addEventListener('click', () => {
-      setNav(navToggle.getAttribute('aria-expanded') !== 'true');
-    });
+    navToggle.addEventListener('click', () => setNav(!isOpen()));
 
     // Close on link tap, Escape, or a click on the backdrop.
     nav.addEventListener('click', (e) => {
@@ -67,9 +86,31 @@ const CONFIG = {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+      if (!isOpen()) return;
+
+      if (e.key === 'Escape') {
         setNav(false);
         navToggle.focus();
+        return;
+      }
+
+      // Keep Tab inside the open drawer instead of letting it wander onto the
+      // page hidden behind it.
+      if (e.key !== 'Tab') return;
+
+      const focusables = [navToggle, ...$$('a, button', nav)]
+        .filter((el) => el.offsetParent !== null || el === navToggle);
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     });
 

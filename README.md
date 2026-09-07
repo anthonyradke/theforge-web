@@ -183,6 +183,18 @@ rings · skip-to-content link · respects `prefers-reduced-motion` (animations a
 ember effect switch off) · print stylesheet · Open Graph tags for link previews ·
 `ExerciseGym` structured data for local search · works with JavaScript disabled.
 
+**Mobile specifics** worth knowing before you edit the CSS:
+
+- Form fields are pinned to **16px** below 940 px. Anything smaller makes iOS
+  Safari zoom the whole page when a field is tapped — don't lower it.
+- Tap targets are padded to at least 24 px on mobile. If you add a link, give it
+  vertical padding rather than leaving it at raw text height.
+- The mobile menu lives inside `.site-header`, which is a stacking context, so
+  `body.nav-open .site-header` lifts it above the backdrop. If you change any
+  `z-index` around the header, re-check that the drawer still sits on top.
+- Opening the menu locks the page with `position: fixed` and restores the scroll
+  position on close (`overflow-anchor: none` keeps it exact).
+
 ---
 
 ## Ideas for later
