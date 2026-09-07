@@ -1,7 +1,7 @@
 # The Forge Strength Club — Website
 
-Marketing site for The Forge Strength Club, a faith-driven strength gym opening in
-Greenville, South Carolina.
+Marketing site for The Forge Strength Club, a faith-driven strength gym coming to
+Piedmont, South Carolina (Greenville area) in early 2027.
 
 **Live:** https://anthonyradke.github.io/theforge-web/
 
@@ -11,29 +11,31 @@ the site fast, keeps hosting free, and means anyone can edit it with a text edit
 
 ---
 
-## ⚠️ Placeholder content — read this first
+## What's still a placeholder
 
-This site is a **starting point**. The design and structure are finished; some of
-the facts are invented stand-ins so the pages look real. **Replace everything in
-this table before sharing the site publicly.**
+The site now reflects real, confirmed information. A few things remain to fill in:
 
 | Where | Placeholder | Replace with |
 |---|---|---|
-| Team section | `[Founder Name]`, `[Coach Name]` ×3 | Real names |
-| Team section | `[Short founder bio …]`, `[Certification]` | Real bio and credentials |
-| Story section | Garage origin story, `[Founder Name]` quote | The real story — this is drafted copy, not fact |
-| Contact + footer + JSON-LD | `hello@theforgestrengthclub.com` | Real email |
-| Contact + footer + JSON-LD | `(864) 555-0142` / `+18645550142` | Real phone (555-01xx is a reserved fake range) |
-| Membership | `$59 / $129 / $249` and all plan features | Real pricing |
-| Stats bar | `12,000+` sq ft, `40+` stations | Real numbers |
-| Training | Equipment list, class times | Real inventory and schedule |
-| FAQ | `[Month] 2026` opening | Real opening month |
+| Founder section | `Owner photo` frame | Jonathan's Forge owner photo |
+| About section | 3 photo frames | Gym floor, powerlifting section, community shots |
+| Contact + footer + JSON-LD | `hello@theforgestrengthclub.com` | The real email address |
 | Contact | Social links are `href="#"` | Real Instagram / Facebook / YouTube URLs |
-| Contact | Map is centred on Greenville generally | Real address once the lease is signed |
-| Whole site | Photo placeholders (see below) | Real photography |
+| Founder section | `<!-- TODO -->` comment in the bio | The longer "Meet the Owner" story, if you want more depth |
 
-Everything above is plain text in `index.html` — search for the bracketed text and
-type over it.
+**Deliberately not on the site yet**, because it isn't final — don't add it back
+until it is:
+
+- **Pricing.** No plan tiers, no dollar figures, no discounts, no day-pass rate.
+  The membership section explains that pricing is coming and drives people to the
+  founding list instead.
+- **Staffed hours.** Only "24/7 member access — staffed hours announced before
+  opening."
+- **Street address.** Only "Piedmont, South Carolina."
+- **A phone number.** Email only until there's a real line.
+- **Exact opening date.** Only "early 2027."
+- **Square footage** is published as "9,000+" — if the lease changes the number,
+  it appears in the stats bar, the story timeline, and the FAQ.
 
 ### Photos
 
@@ -97,7 +99,7 @@ The site deploys straight from the `main` branch.
 
 ```bash
 git add -A
-git commit -m "Update membership pricing"
+git commit -m "Update opening date"
 git push
 ```
 
@@ -136,7 +138,7 @@ domain without changes.
 index.html            The entire site — every section lives here
 404.html              Error page (self-contained; no external CSS/JS by design)
 assets/css/styles.css All styling, organised into 24 numbered sections
-assets/js/main.js     Nav, scroll reveals, counters, pricing toggle, embers, form
+assets/js/main.js     Nav, scroll reveals, counters, hero embers, form handling
 assets/img/           favicon.svg, og-image.svg — add photos here
 site.webmanifest      App icon + name for "Add to Home Screen"
 robots.txt            Lets search engines index the site
@@ -146,9 +148,9 @@ sitemap.xml           Helps Google find the page
 
 ### Page sections, in order
 
-Announcement bar · Hero · Stats · Marquee · The Forge (overview) · Mission & values ·
-Story · Training & equipment · Iron Clubs · Membership · Team · FAQ · Contact ·
-Footer
+Announcement bar · Hero · Stats · Marquee · The Forge (overview) · Our Purpose
+(physical / emotional / spiritual) · Our Story · Training & equipment ·
+Iron Clubs · Membership · The Founder · FAQ · Contact · Footer
 
 To remove a section, delete its `<section>` block in `index.html` and its link in
 the nav and footer. To reorder, move the block — the CSS doesn't care about order.
@@ -170,6 +172,12 @@ the nav and footer. To reorder, move the block — the CSS doesn't care about or
 loaded from Google Fonts. Each has a system fallback so text still renders if the
 fonts are slow or blocked.
 
+**Voice.** The copy is written to sound like a serious gym where everyone belongs —
+not a hardcore gym that's proud of excluding people, and never at the expense of
+other gyms. Two rules worth keeping when you edit: don't take shots at commercial
+gyms, and don't imply that training for aesthetics is a lesser goal. The Forge is
+pro-strength *and* pro-bodybuilding.
+
 **Built in:** responsive down to 320 px · keyboard accessible with visible focus
 rings · skip-to-content link · respects `prefers-reduced-motion` (animations and the
 ember effect switch off) · print stylesheet · Open Graph tags for link previews ·
@@ -181,7 +189,7 @@ ember effect switch off) · print stylesheet · Open Graph tags for link preview
 
 - Photo gallery or a walkthrough video once the space is built out
 - A real Iron Clubs leaderboard with member names and dates
-- Class schedule pulled from whatever booking software the gym adopts
+- Publish membership plans once they're locked, as a proper pricing section
 - Blog or coaching notes (good for local SEO)
 - Google Business Profile — genuinely the highest-impact thing for a local gym
 - Swap the OpenStreetMap embed for a Google Map once there's a street address

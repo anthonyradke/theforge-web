@@ -161,23 +161,6 @@ const CONFIG = {
     sections.forEach((s) => spy.observe(s));
   }
 
-  /* ── Membership billing toggle ───────────────────────────────────────── */
-  const billingToggle = $('#billingToggle');
-
-  if (billingToggle) {
-    const wrap = billingToggle.closest('.toggle');
-
-    billingToggle.addEventListener('click', () => {
-      const annual = billingToggle.getAttribute('aria-checked') !== 'true';
-      billingToggle.setAttribute('aria-checked', String(annual));
-      wrap.classList.toggle('is-annual', annual);
-
-      $$('.plan__amt, .plan__per').forEach((el) => {
-        el.textContent = annual ? el.dataset.annual : el.dataset.monthly;
-      });
-    });
-  }
-
   /* ── Hero embers ─────────────────────────────────────────────────────── */
   const canvas = $('#embers');
 
