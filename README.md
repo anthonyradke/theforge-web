@@ -1,217 +1,56 @@
-# The Forge Strength Club — Website
+# The Forge Strength Club
 
-Marketing site for The Forge Strength Club, a faith-driven strength gym coming to
-Piedmont, South Carolina (Greenville area) in early 2027.
+Website I built for The Forge Strength Club, a strength gym opening in Piedmont, South Carolina in early 2027.
+Live at [anthonyradke.github.io/theforge-web](https://anthonyradke.github.io/theforge-web/).
 
-**Live:** https://anthonyradke.github.io/theforge-web/
+It's one static page with no framework, build step or dependencies. That keeps hosting free on GitHub Pages and
+lets the owner edit copy in a text editor. `index.html` holds every section, `assets/css/styles.css` holds the
+styles in numbered sections, and `assets/js/main.js` handles the nav, scroll reveals, stat counters, the ember
+effect in the hero and the contact form.
 
-Plain HTML, CSS and JavaScript. No build step, no framework, no dependencies to
-install — open `index.html` in a browser and it works. That's deliberate: it keeps
-the site fast, keeps hosting free, and means anyone can edit it with a text editor.
+## Running locally
 
----
-
-## What's still a placeholder
-
-The site now reflects real, confirmed information. A few things remain to fill in:
-
-| Where | Placeholder | Replace with |
-|---|---|---|
-| Founder section | `Owner photo` frame | Jonathan's Forge owner photo |
-| About section | 3 photo frames | Gym floor, powerlifting section, community shots |
-| Contact + footer + JSON-LD | `hello@theforgestrengthclub.com` | The real email address |
-| Contact | Facebook + YouTube markup is commented out | Uncomment and paste the URLs once those accounts exist |
-| Founder section | `<!-- TODO -->` comment in the bio | The longer "Meet the Owner" story, if you want more depth |
-
-**Deliberately not on the site yet**, because it isn't final — don't add it back
-until it is:
-
-- **Pricing.** No plan tiers, no dollar figures, no discounts, no day-pass rate.
-  The membership section explains that pricing is coming and drives people to the
-  founding list instead.
-- **Staffed hours.** Only "24/7 member access — staffed hours announced before
-  opening."
-- **Street address.** Only "Piedmont, South Carolina."
-- **A phone number.** Email only until there's a real line.
-- **Exact opening date.** Only "early 2027."
-- **Square footage** is published as "9,000+" — if the lease changes the number,
-  it appears in the stats bar, the story timeline, and the FAQ.
-
-### Photos
-
-Every photo slot is a styled placeholder that looks like this:
-
-```html
-<div class="media-frame__ph" data-ph="Gym floor / platform photo"></div>
+```sh
+python3 -m http.server 4321
 ```
 
-Replace the whole `<div>` with an image and it will crop and size itself correctly:
+Pushing to `main` deploys it.
 
-```html
-<img src="assets/img/gym-floor.jpg" alt="Lifter setting up on a competition platform" width="1200" height="900" loading="lazy">
-```
+## How it's built
 
-Put the files in `assets/img/`. Aim for JPEGs under ~300 KB each (resize to about
-1600 px on the long edge first — huge photos are the #1 thing that makes a site
-feel slow). Always write a real `alt` description; it matters for screen readers
-and for Google.
+- Colors and type are CSS custom properties at the top of `styles.css`. Headlines are Anton, labels Barlow
+  Condensed, body text Inter, each with a system fallback.
+- The logo is an SVG redraw of the gym's mark, defined once as `<symbol id="forge-mark">` in `index.html` and
+  reused in the header and footer. `assets/img/favicon.svg` is a separate copy.
+- Links and assets use relative paths, so moving to a custom domain only means updating the canonical URL,
+  Open Graph tags, `sitemap.xml` and `robots.txt`, and adding a `CNAME` file.
+- `ExerciseGym` JSON-LD for local search, Open Graph tags, a print stylesheet, and a skip link. It works with
+  JavaScript off and turns animations off under `prefers-reduced-motion`.
 
-### The logo
+### Contact form
 
-The anvil-and-cross mark used in the header, footer and favicon is a **clean SVG
-redraw** of the real logo, built so it stays sharp at any size and loads instantly.
-It's close to the original but it is not the textured artwork.
+GitHub Pages can't receive form posts. With a Formspree endpoint set in `CONFIG` at the top of `main.js`, the form
+submits over `fetch` and shows a confirmation in place. Until then, or if the request fails, it opens the
+visitor's mail app with the fields filled in. A hidden honeypot field catches most bots.
 
-To use the real files instead, put them in `assets/img/` and swap the `<svg>…</svg>`
-blocks for `<img>` tags. The mark is defined once as `<symbol id="forge-mark">` near
-the bottom of `index.html` — editing that one symbol updates every place it appears.
+### Mobile notes
 
----
+These came from bugs on real phones:
 
-## Making the contact form actually send mail
+- Form fields stay at 16px below 940px, or iOS Safari zooms the page when one is focused.
+- The mobile menu lives inside `.site-header`, which is its own stacking context, so `body.nav-open .site-header`
+  raises the whole header above the backdrop.
+- Opening the menu locks scrolling with `overflow: hidden` plus a `touchmove` guard, not `position: fixed` on the
+  body. A fixed body jumps to the top, and restoring the scroll position afterwards could land in the wrong place.
+- The sticky bar is solid on mobile. With `backdrop-filter` on a sticky element, phones showed compositing
+  artifacts as content scrolled underneath.
+- The film-grain overlay (`body::after`) is off below 940px. Mobile browser toolbars resizing the viewport left it
+  misaligned as a dark band along the bottom of the screen.
 
-GitHub Pages serves static files only — it cannot process a form submission. Right
-now the form **falls back to opening the visitor's email app** with every field
-pre-filled. That works today; it just costs the visitor one extra click.
+## Still to do
 
-To get submissions delivered straight to an inbox (free, ~3 minutes):
-
-1. Sign up at [formspree.io](https://formspree.io) and create a form.
-2. Copy the endpoint it gives you — it looks like `https://formspree.io/f/abcdwxyz`.
-3. Open `assets/js/main.js` and paste it into `CONFIG` at the very top:
-
-```js
-const CONFIG = {
-  FORM_ENDPOINT: 'https://formspree.io/f/abcdwxyz',
-  CONTACT_EMAIL: 'hello@theforgestrengthclub.com'
-};
-```
-
-That's the only change needed. The form then submits without a page reload, shows a
-success message, and still falls back to email if the request fails. A hidden
-honeypot field already filters out most spam bots.
-
----
-
-## Publishing changes
-
-The site deploys straight from the `main` branch.
-
-```bash
-git add -A
-git commit -m "Update opening date"
-git push
-```
-
-GitHub rebuilds within a minute or so. If Pages isn't switched on yet:
-**Settings → Pages → Source: "Deploy from a branch" → `main` / `root` → Save.**
-
-### Previewing locally
-
-Open `index.html` directly, or run a local server (needed if you want the paths to
-behave exactly like they do live):
-
-```bash
-python -m http.server 4321
-```
-
-Then visit http://localhost:4321.
-
-### Custom domain
-
-When the real domain is ready (`theforgestrengthclub.com` or similar):
-
-1. Add a file named `CNAME` at the repo root containing just the domain.
-2. Point the domain's DNS at GitHub Pages ([instructions](https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site)).
-3. Find-and-replace `https://anthonyradke.github.io/theforge-web/` with the new
-   domain in `index.html` (the `canonical` and `og:`/`twitter:` tags),
-   `sitemap.xml`, and `robots.txt`.
-
-All internal links and asset paths are **relative**, so they keep working on either
-domain without changes.
-
----
-
-## What's in the repo
-
-```
-index.html            The entire site — every section lives here
-404.html              Error page (self-contained; no external CSS/JS by design)
-assets/css/styles.css All styling, organised into 24 numbered sections
-assets/js/main.js     Nav, scroll reveals, counters, hero embers, form handling
-assets/img/           favicon.svg, og-image.svg — add photos here
-site.webmanifest      App icon + name for "Add to Home Screen"
-robots.txt            Lets search engines index the site
-sitemap.xml           Helps Google find the page
-.nojekyll             Tells GitHub Pages to serve files as-is
-```
-
-### Page sections, in order
-
-Announcement bar · Hero · Stats · Marquee · The Forge (overview) · Our Purpose
-(physical / emotional / spiritual) · Our Story · Training & equipment ·
-Iron Clubs · Membership · The Founder · FAQ · Contact · Footer
-
-To remove a section, delete its `<section>` block in `index.html` and its link in
-the nav and footer. To reorder, move the block — the CSS doesn't care about order.
-
----
-
-## Design notes
-
-**Colours** are defined once as CSS variables at the top of `styles.css`. Change
-`--ember` and the red updates everywhere.
-
-```css
---ember:  #D8232A;   /* brand red */
---ink:    #0A0A0B;   /* page background */
---bone:   #EDEBE6;   /* primary text */
-```
-
-**Type** is Anton (headlines), Barlow Condensed (labels and nav) and Inter (body),
-loaded from Google Fonts. Each has a system fallback so text still renders if the
-fonts are slow or blocked.
-
-**Voice.** The copy is written to sound like a serious gym where everyone belongs —
-not a hardcore gym that's proud of excluding people, and never at the expense of
-other gyms. Two rules worth keeping when you edit: don't take shots at commercial
-gyms, and don't imply that training for aesthetics is a lesser goal. The Forge is
-pro-strength *and* pro-bodybuilding.
-
-**Built in:** responsive down to 320 px · keyboard accessible with visible focus
-rings · skip-to-content link · respects `prefers-reduced-motion` (animations and the
-ember effect switch off) · print stylesheet · Open Graph tags for link previews ·
-`ExerciseGym` structured data for local search · works with JavaScript disabled.
-
-**Mobile specifics** worth knowing before you edit the CSS:
-
-- Form fields are pinned to **16px** below 940 px. Anything smaller makes iOS
-  Safari zoom the whole page when a field is tapped — don't lower it.
-- Tap targets are padded to at least 24 px on mobile. If you add a link, give it
-  vertical padding rather than leaving it at raw text height.
-- The mobile menu lives inside `.site-header`, which is a stacking context, so
-  `body.nav-open .site-header` lifts it above the backdrop. If you change any
-  `z-index` around the header, re-check that the drawer still sits on top.
-- Opening the menu **never moves the page**. It uses `overflow: hidden` plus a
-  `touchmove` guard in `main.js`, deliberately not `position: fixed` — taking the
-  body out of flow resets the scroll to 0 and any drift in restoring it drops you
-  somewhere else on the page. Don't reintroduce a fixed-body lock.
-- The sticky bar is **solid** on mobile and translucent-with-blur only on
-  desktop. A translucent bar lets the page show through as it scrolls past, and
-  `backdrop-filter` on a sticky element causes compositing artefacts on phones.
-- The page-wide grain overlay (`body::after`) is **off** below 940 px. It's a
-  fixed full-viewport layer, and mobile URL bars showing/hiding leave it
-  misaligned as a faint darker band across the bottom of the screen.
-
----
-
-## Ideas for later
-
-- Photo gallery or a walkthrough video once the space is built out
-- A real Iron Clubs leaderboard with member names and dates
-- Publish membership plans once they're locked, as a proper pricing section
-- Blog or coaching notes (good for local SEO)
-- Google Business Profile — genuinely the highest-impact thing for a local gym
-- Swap the OpenStreetMap embed for a Google Map once there's a street address
-- Export `assets/img/og-image.svg` to a 1200×630 PNG; a few social platforms
-  don't render SVG link previews
+- Real photos in the founder and about sections, replacing the placeholder frames
+  (`<div class="media-frame__ph">`). Swap each one for an `<img>` with a width, height and alt text.
+- The real contact email, and Facebook and YouTube links once those accounts exist.
+- Pricing, staffed hours, street address and exact opening date stay off the site until they're final.
+- A 1200×630 PNG of `assets/img/og-image.svg`, since some platforms won't render SVG link previews.
