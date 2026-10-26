@@ -1,11 +1,11 @@
 # The Forge Strength Club
 
-A website I built for The Forge Strength Club, a strength gym opening in Piedmont, South Carolina in early 2027.
+Website for The Forge Strength Club, a strength gym opening in Piedmont, South Carolina in early 2027.
 
 Live at [anthonyradke.github.io/theforge-web](https://anthonyradke.github.io/theforge-web/)
 
-It's a single page of plain HTML, CSS and JavaScript. I kept it simple on purpose so hosting is free and the
-owner can update text without any tools.
+A single page of plain HTML, CSS and JavaScript, so hosting is free and the owner can update text without any
+tools.
 
 ## Files
 
@@ -41,11 +41,11 @@ email app with everything filled in. A hidden field catches most spam bots.
 
 ## Fixes for phones
 
-A few things I ran into while testing on real phones:
+Issues found while testing on real phones:
 
 - Form fields stay at 16px on small screens. Anything smaller and iPhones zoom in when you tap a field.
-- Opening the menu locks the page from scrolling behind it. I avoided the usual `position: fixed` approach
-  because it made the page jump back to the top.
+- Opening the menu locks the page from scrolling behind it. The usual `position: fixed` approach isn't used
+  because it makes the page jump back to the top.
 - The sticky header is solid on phones. The blurred glass effect caused flickering while scrolling.
 - The grain texture over the page is turned off on phones. It shifted out of place when the browser's toolbar
   showed or hid.
@@ -56,3 +56,7 @@ A few things I ran into while testing on real phones:
 - Add the real email address and social links once they exist.
 - Add pricing, hours, address and opening date once they're final.
 - Add a PNG version of the link preview image, since some sites can't show SVG.
+
+## License
+
+The code (HTML, CSS and JavaScript) is MIT licensed. The Forge Strength Club's name, logo and content belong to the gym; see [LICENSE](LICENSE).
