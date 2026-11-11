@@ -44,6 +44,7 @@ Found while testing on phones:
 | `index.html` | Every section of the site |
 | `assets/css/styles.css` | Styles |
 | `assets/js/main.js` | Menu, scroll effects, counters, founder photo carousel, contact form |
+| `assets/css/fx.css`, `assets/js/fx.js` | Decorative animations, one numbered block per effect |
 | `assets/img/` | Logo, icons, link preview image, founder photos |
 
 ## Running locally

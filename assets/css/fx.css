@@ -1,0 +1,30 @@
+/* =========================================================================
+   THE FORGE STRENGTH CLUB — fx.css
+   Decorative animation layer. Loaded after styles.css and paired with
+   assets/js/fx.js. Every numbered block is independent: removing a block
+   here and the block with the same number in fx.js removes that effect and
+   nothing else. The page works fully without this file.
+
+   Reduced motion is handled by the global rule in styles.css (section 24)
+   plus the checks in fx.js.
+   ========================================================================= */
+
+/* ── 1. Scroll progress barbell ────────────────────────────────────────── */
+
+/* ── 2. Records board split-flap ───────────────────────────────────────── */
+
+/* ── 3. Heated-metal buttons ───────────────────────────────────────────── */
+
+/* ── 4. Founding 50 plate rack ─────────────────────────────────────────── */
+
+/* ── 5. Weld-line section dividers ─────────────────────────────────────── */
+
+/* ── 6. Pricing card tilt and founding border ──────────────────────────── */
+
+/* ── 7. Contact section embers ─────────────────────────────────────────── */
+
+/* ── 8. Quenched section headings ──────────────────────────────────────── */
+
+/* ── 9. Founder barbell and credentials ────────────────────────────────── */
+
+/* ── End ───────────────────────────────────────────────────────────────── */
