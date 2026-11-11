@@ -246,6 +246,24 @@ body.nav-open .fx-progress { opacity: 0; }
 @media print { .fx-embers { display: none; } }
 
 /* ── 8. Quenched section headings ──────────────────────────────────────── */
+/* Titles arrive hot and cool to their normal colour as they are revealed. */
+.section__title.reveal.is-in,
+.clubs__closer.reveal.is-in { animation: fxQuench 1.6s ease-out both; }
+.section__title.reveal.is-in[data-delay="1"] { animation-delay: .09s; }
+@keyframes fxQuench {
+  0% {
+    color: #FFD2B0;
+    text-shadow: 0 0 26px rgba(255, 96, 56, .9), 0 0 60px rgba(216, 35, 42, .6);
+  }
+  35% {
+    color: var(--ember-hot);
+    text-shadow: 0 0 18px rgba(216, 35, 42, .55), 0 0 0 rgba(216, 35, 42, 0);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(216, 35, 42, 0), 0 0 0 rgba(216, 35, 42, 0);
+  }
+}
+@media print { .section__title.reveal.is-in, .clubs__closer.reveal.is-in { animation: none; } }
 
 /* ── 9. Founder barbell and credentials ────────────────────────────────── */
 
