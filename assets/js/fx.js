@@ -40,7 +40,9 @@
 
   /* ── 1. Scroll progress barbell ──────────────────────────────────────── */
   block(() => {
-    const marks = $$('main > section[id]').filter((s) => s.id !== 'top' && s.id !== 'stats');
+    // One plate per navbar group: the first section of each data-nav run.
+    const marks = $$('main > section[data-nav]')
+      .filter((s, i, all) => i === 0 || s.dataset.nav !== all[i - 1].dataset.nav);
     if (!marks.length) return;
 
     const bar = document.createElement('div');
@@ -67,7 +69,7 @@
       plates.forEach((el, i) => el.classList.toggle('is-on', p >= stops[i] - 0.002));
     };
 
-    // A plate sits where its section's top meets the header.
+    // A plate sits where its group's first section meets the header.
     const measure = () => {
       max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       stops = marks.map((s) => {
