@@ -39,6 +39,54 @@
   };
 
   /* ── 1. Scroll progress barbell ──────────────────────────────────────── */
+  block(() => {
+    const marks = $$('main > section[id]').filter((s) => s.id !== 'top' && s.id !== 'stats');
+    if (!marks.length) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'fx-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    const fill = document.createElement('span');
+    fill.className = 'fx-progress__fill';
+    bar.appendChild(fill);
+    const plates = marks.map(() => {
+      const p = document.createElement('i');
+      p.className = 'fx-progress__plate';
+      bar.appendChild(p);
+      return p;
+    });
+    document.body.appendChild(bar);
+
+    const HEADER = 110;                      // sticky header height, roughly
+    let max = 1, stops = [], queued = false;
+
+    const paint = () => {
+      queued = false;
+      const p = Math.min(Math.max(window.scrollY / max, 0), 1);
+      fill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      plates.forEach((el, i) => el.classList.toggle('is-on', p >= stops[i] - 0.002));
+    };
+
+    // A plate sits where its section's top meets the header.
+    const measure = () => {
+      max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      stops = marks.map((s) => {
+        const top = s.getBoundingClientRect().top + window.scrollY - HEADER;
+        return Math.min(Math.max(top / max, 0), 1);
+      });
+      plates.forEach((el, i) => el.style.setProperty('--x', (stops[i] * 100).toFixed(2) + '%'));
+      paint();
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    // Page height changes when photos load or an FAQ answer opens.
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+    measure();
+  });
 
   /* ── 2. Records board split-flap ─────────────────────────────────────── */
 
