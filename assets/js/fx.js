@@ -155,6 +155,33 @@
   });
 
   /* ── 3. Heated-metal buttons ─────────────────────────────────────────── */
+  block(() => {
+    if (reduce || !Element.prototype.animate) return;
+
+    // A few sparks from the point of the press.
+    document.addEventListener('pointerdown', (e) => {
+      const btn = e.target instanceof Element && e.target.closest('.btn');
+      if (!btn || e.button > 0) return;
+      const n = 7 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < n; i++) {
+        const s = document.createElement('i');
+        s.className = 'fx-spark';
+        s.style.left = e.clientX + 'px';
+        s.style.top = e.clientY + 'px';
+        document.body.appendChild(s);
+        const ang = -Math.PI / 2 + (Math.random() - 0.5) * 2.6;
+        const dist = 26 + Math.random() * 46;
+        const dx = Math.cos(ang) * dist;
+        const dy = Math.sin(ang) * dist;
+        const fly = s.animate([
+          { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+          { transform: `translate(${dx * 0.8}px, ${dy}px) scale(.9)`, opacity: 1, offset: 0.55 },
+          { transform: `translate(${dx}px, ${dy + 34}px) scale(.3)`, opacity: 0 }
+        ], { duration: 420 + Math.random() * 260, easing: 'cubic-bezier(.2, .7, .4, 1)' });
+        fly.onfinish = fly.oncancel = () => s.remove();
+      }
+    }, { passive: true });
+  });
 
   /* ── 4. Founding 50 plate rack ───────────────────────────────────────── */
 
