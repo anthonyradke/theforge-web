@@ -215,6 +215,18 @@
   });
 
   /* ── 5. Weld-line section dividers ───────────────────────────────────── */
+  block(() => {
+    if (reduce || !hasIO) return;
+    $$('.section--alt').forEach((sec) => {
+      ['top', 'bottom'].forEach((edge) => {
+        const weld = document.createElement('span');
+        weld.className = 'fx-weld fx-weld--' + edge;
+        weld.setAttribute('aria-hidden', 'true');
+        sec.appendChild(weld);
+        onView(weld, () => weld.classList.add('is-on'), { rootMargin: '0px 0px -18% 0px' });
+      });
+    });
+  });
 
   /* ── 6. Pricing card tilt and founding border ────────────────────────── */
 

@@ -141,6 +141,53 @@ body.nav-open .fx-progress { opacity: 0; }
 }
 
 /* ── 5. Weld-line section dividers ─────────────────────────────────────── */
+.fx-weld {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 16px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fx-weld--top    { top: -8px; }
+.fx-weld--bottom { bottom: -9px; transform: scaleX(-1); }
+/* The seam left behind. */
+.fx-weld::before {
+  content: "";
+  position: absolute;
+  inset: 7px 0 8px;
+  background: linear-gradient(90deg, var(--ember), #FFC9A0);
+  box-shadow: 0 0 8px var(--ember-hot);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+/* The arc that travels along it. */
+.fx-weld::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 8px at calc(100% - 8px) 50%,
+    #fff 0, #FFC9A0 25%, rgba(255, 74, 52, .55) 55%, transparent 100%);
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.fx-weld.is-on::before {
+  animation: fxWeldSeam 1.6s var(--e-io) forwards, fxWeldCool 2.4s ease-out 1.6s forwards;
+}
+.fx-weld.is-on::after { animation: fxWeldArc 1.6s var(--e-io) forwards; }
+@keyframes fxWeldSeam {
+  from { opacity: 1; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes fxWeldCool { to { opacity: 0; } }
+@keyframes fxWeldArc {
+  0%   { opacity: 1; transform: translateX(-100%); }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(0); }
+}
+@media print { .fx-weld { display: none; } }
 
 /* ── 6. Pricing card tilt and founding border ──────────────────────────── */
 
