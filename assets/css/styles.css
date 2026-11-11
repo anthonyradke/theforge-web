@@ -1101,27 +1101,116 @@ em { font-style: italic; }
 .equipment__head { margin-bottom: 2rem; }
 .equipment__title { margin-bottom: .6rem; font-size: clamp(1.5rem, 2.6vw, 2rem); }
 .equipment__head p { color: var(--smoke); font-size: .97rem; }
-.equipment__list {
+/* Equipment tiles: photo (or placeholder) with a caption underneath. */
+.gear-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-  gap: .1rem 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
 }
-.equipment__list li {
+.gear { display: flex; }
+.gear__btn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: var(--hair);
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color .3s, transform .35s var(--e-out);
+}
+.gear__media {
   position: relative;
-  padding: .8rem 0 .8rem 1.9rem;
-  border-bottom: 1px solid var(--steel-800);
-  color: var(--bone-dim);
-  font-size: .93rem;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--steel-900);
 }
-.equipment__list li::before {
+.gear__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--e-out);
+}
+.gear__ph {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 2px, transparent 2px 10px),
+    linear-gradient(150deg, var(--steel-850), var(--steel-900));
+}
+.gear__ph svg { width: 42%; fill: var(--bone); opacity: .09; }
+.gear__name {
+  position: relative;
+  display: block;
+  flex: 1;
+  padding: .85rem 1rem 1rem 2.1rem;
+  border-top: 2px solid var(--steel-800);
+  color: var(--bone-dim);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+.gear__name::before {
   content: "";
   position: absolute;
-  left: 0; top: 50%;
-  width: 8px; height: 8px;
-  margin-top: -4px;
+  left: 1rem;
+  /* first-line centre: padding-top + half of one line */
+  top: calc(.85rem + .7em - 3.5px);
+  width: 7px; height: 7px;
   background: var(--ember);
   transform: rotate(45deg);
 }
+/* Only tiles that actually have a photo are clickable. */
+.gear.has-photo .gear__btn { cursor: zoom-in; }
+.gear.has-photo .gear__btn:hover { border-color: var(--steel-600); transform: translateY(-3px); }
+.gear.has-photo .gear__btn:hover img { transform: scale(1.04); }
+.gear.has-photo .gear__btn:hover .gear__name { color: var(--bone); }
+.gear__btn:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+
+/* Full-size photo viewer */
+.viewer {
+  max-width: min(92vw, 1100px);
+  max-height: 92vh;
+  padding: 0;
+  border: var(--hair);
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  color: var(--bone);
+  overflow: visible;
+}
+.viewer::backdrop { background: rgba(0,0,0,.86); }
+.viewer__fig { margin: 0; }
+.viewer__img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 3.5rem);
+  margin-inline: auto;
+  object-fit: contain;
+}
+.viewer__cap {
+  padding: .9rem 1.1rem;
+  font: 700 .82rem/1.3 var(--f-cond);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.viewer__close {
+  position: absolute;
+  top: -.9rem; right: -.9rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem; height: 2.5rem;
+  border: var(--hair);
+  border-radius: 50%;
+  background: var(--steel-900);
+  color: var(--bone);
+  cursor: pointer;
+}
+.viewer__close svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.viewer__close:hover { border-color: var(--ember); }
 
 /* ── 16. Iron Clubs ────────────────────────────────────────────────────── */
 .clubs {
@@ -1944,6 +2033,7 @@ em { font-style: italic; }
   /* Three pillars stay side by side here; they collapse at 940px instead. */
   .pillars--three { grid-template-columns: repeat(3, 1fr); }
   .cards      { grid-template-columns: repeat(2, 1fr); }
+  .gear-grid  { grid-template-columns: repeat(3, 1fr); }
   .nav__list  { gap: 1.15rem; }
   .nav__list a { font-size: .78rem; letter-spacing: .12em; }
 }
@@ -2141,6 +2231,10 @@ em { font-style: italic; }
 @media (max-width: 560px) {
   .pillars    { grid-template-columns: 1fr; }
   .cards      { grid-template-columns: 1fr; }
+  .gear-grid  { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+  .gear__name { padding: .7rem .75rem .8rem 1.7rem; font-size: .84rem; }
+  .gear__name::before { left: .75rem; top: calc(.7rem + .7em - 3.5px); }
+  .viewer__close { top: .5rem; right: .5rem; }
   .site-footer__nav { grid-template-columns: repeat(2, 1fr); }
   .about__media-row { grid-template-columns: 1fr; }
   .brand__logo,

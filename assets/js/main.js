@@ -297,6 +297,38 @@ const FOUNDING = {
     });
   }
 
+  /* ── Equipment photo viewer ─────────────────────────────────────────
+     Tiles become clickable only once a real <img> replaces the placeholder. */
+  const viewer = $('#viewer');
+  const gearWithPhotos = $$('.gear').filter((li) => $('.gear__media img', li));
+  if (viewer && typeof viewer.showModal === 'function' && gearWithPhotos.length) {
+    const vImg = $('.viewer__img', viewer);
+    const vCap = $('.viewer__cap', viewer);
+    let current = 0;
+    const show = (i) => {
+      current = (i + gearWithPhotos.length) % gearWithPhotos.length;
+      const li = gearWithPhotos[current];
+      const img = $('.gear__media img', li);
+      vImg.src = img.currentSrc || img.src;
+      vImg.alt = img.alt;
+      vCap.textContent = $('.gear__name', li).textContent;
+    };
+    gearWithPhotos.forEach((li, i) => {
+      li.classList.add('has-photo');
+      const btn = $('.gear__btn', li);
+      btn.removeAttribute('tabindex');
+      btn.setAttribute('aria-label', 'View photo: ' + $('.gear__name', li).textContent);
+      btn.addEventListener('click', () => { show(i); viewer.showModal(); });
+    });
+    $('.viewer__close', viewer).addEventListener('click', () => viewer.close());
+    // Click on the backdrop closes it.
+    viewer.addEventListener('click', (e) => { if (e.target === viewer) viewer.close(); });
+    viewer.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(current + 1);
+      if (e.key === 'ArrowLeft') show(current - 1);
+    });
+  }
+
   /* ── Scroll spy (highlights the current group in the nav) ──────────────
      The nav has one link per stretch of the page, not per section. Each
      section names its link in data-nav; sections without one (hero, stats,

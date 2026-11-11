@@ -557,17 +557,70 @@
           The Forge is being equipped for both.
         </p>
       </div>
-      <ul class="equipment__list">
-        <li class="reveal">Dedicated powerlifting section</li>
-        <li class="reveal" data-delay="1">Combo racks</li>
-        <li class="reveal" data-delay="1">Rogue power racks</li>
-        <li class="reveal" data-delay="2">Calibrated kilo plates</li>
-        <li class="reveal" data-delay="2">Competition &amp; specialty bars</li>
-        <li class="reveal" data-delay="3">Dumbbells through 150 lb</li>
-        <li class="reveal" data-delay="3">Full bodybuilding machine selection</li>
-        <li class="reveal" data-delay="4">Cable stations</li>
-        <li class="reveal" data-delay="4">Hack squat, leg press &amp; Smith machine</li>
-        <li class="reveal" data-delay="5">Turf lane</li>
+      <!-- Equipment tiles. To add a photo, replace a tile's <span class="gear__ph">…</span>
+           with <img src="assets/img/gear/combo-racks.webp" alt="Combo racks on the gym floor" loading="lazy">.
+           Tiles with a photo open it full size when clicked; tiles without one stay as placeholders. -->
+      <ul class="gear-grid">
+        <li class="gear reveal">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Dedicated powerlifting section</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="1">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Combo racks</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="2">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Rogue power racks</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="3">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Calibrated kilo plates</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="4">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Competition &amp; specialty bars</span>
+          </button>
+        </li>
+        <li class="gear reveal">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Dumbbells through 150&nbsp;lb</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="1">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Full bodybuilding machine selection</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="2">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Cable stations</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="3">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Hack squat, leg press &amp; Smith machine</span>
+          </button>
+        </li>
+        <li class="gear reveal" data-delay="4">
+          <button class="gear__btn" type="button" tabindex="-1">
+            <span class="gear__media"><span class="gear__ph" aria-hidden="true"><svg viewBox="-6 -6 652 366"><use href="#forge-mark"></use></svg></span></span>
+            <span class="gear__name">Turf lane</span>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
@@ -1117,6 +1170,16 @@
     </div>
   </div>
 </footer>
+
+<dialog class="viewer" id="viewer" aria-label="Equipment photo">
+  <figure class="viewer__fig">
+    <img class="viewer__img" alt="">
+    <figcaption class="viewer__cap"></figcaption>
+  </figure>
+  <button class="viewer__close" type="button" aria-label="Close photo">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</dialog>
 
 <!-- ═══════════════════ SVG SPRITE ═══════════════════ -->
 <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
