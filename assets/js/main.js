@@ -35,7 +35,7 @@ const CONFIG = {
    ──────────────────────────────────────────────────────────────────────── */
 const FOUNDING = {
   TOTAL: 50,
-  SPOTS_LEFT: null
+  SPOTS_LEFT: 46
 };
 
 (function () {
@@ -297,28 +297,56 @@ const FOUNDING = {
     });
   }
 
+  /* ── Equipment muscle-group dropdown ─────────────────────────────────
+     Shows the tile list whose data-gear-group matches the selected option. */
+  const gearSelect = $('[data-gear-select]');
+  const gearGroups = $$('[data-gear-group]');
+  if (gearSelect && gearGroups.length) {
+    const showGroup = (key) => {
+      gearGroups.forEach((ul) => {
+        const on = ul.dataset.gearGroup === key;
+        ul.hidden = !on;
+        if (on) {
+          ul.classList.toggle('is-switching', false);
+          void ul.offsetWidth;
+          ul.classList.toggle('is-switching', true);
+        }
+      });
+    };
+    gearSelect.addEventListener('change', () => showGroup(gearSelect.value));
+    // Browsers can restore a previous selection on reload; match it.
+    if (gearSelect.value !== gearGroups[0].dataset.gearGroup) showGroup(gearSelect.value);
+  }
+
   /* ── Equipment photo viewer ─────────────────────────────────────────
-     Tiles become clickable only once a real <img> replaces the placeholder. */
+     Tiles become clickable only once a real <img> replaces the placeholder.
+     Arrow keys step through the photos in the currently shown group. */
   const viewer = $('#viewer');
-  const gearWithPhotos = $$('.gear').filter((li) => $('.gear__media img', li));
+  const hasPhoto = (li) => !!$('.gear__media img', li);
+  const gearWithPhotos = $$('.gear').filter(hasPhoto);
   if (viewer && typeof viewer.showModal === 'function' && gearWithPhotos.length) {
     const vImg = $('.viewer__img', viewer);
     const vCap = $('.viewer__cap', viewer);
+    let set = [];
     let current = 0;
     const show = (i) => {
-      current = (i + gearWithPhotos.length) % gearWithPhotos.length;
-      const li = gearWithPhotos[current];
+      current = (i + set.length) % set.length;
+      const li = set[current];
       const img = $('.gear__media img', li);
       vImg.src = img.currentSrc || img.src;
       vImg.alt = img.alt;
       vCap.textContent = $('.gear__name', li).textContent;
     };
-    gearWithPhotos.forEach((li, i) => {
+    gearWithPhotos.forEach((li) => {
       li.classList.add('has-photo');
       const btn = $('.gear__btn', li);
       btn.removeAttribute('tabindex');
       btn.setAttribute('aria-label', 'View photo: ' + $('.gear__name', li).textContent);
-      btn.addEventListener('click', () => { show(i); viewer.showModal(); });
+      btn.addEventListener('click', () => {
+        set = $$('.gear', li.parentElement).filter(hasPhoto);
+        show(set.indexOf(li));
+        viewer.showModal();
+      });
     });
     $('.viewer__close', viewer).addEventListener('click', () => viewer.close());
     // Click on the backdrop closes it.
