@@ -190,6 +190,48 @@ body.nav-open .fx-progress { opacity: 0; }
 @media print { .fx-weld { display: none; } }
 
 /* ── 6. Pricing card tilt and founding border ──────────────────────────── */
+.fx-tilt { position: relative; }
+.fx-tilt:hover {
+  border-color: var(--steel-600);
+  transform: perspective(900px) translateY(-4px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+.fx-tilt.is-tilting { transition: border-color .35s, transform .12s linear; }
+/* Highlight that follows the pointer. */
+.fx-tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, .07), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
+}
+.fx-tilt:hover::after { opacity: 1; }
+
+/* Founding 50: a hot spot that travels slowly around the border. */
+@property --fx-orbit {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.f50.fx-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--fx-orbit),
+    transparent 0 72%, var(--ember-hot) 86%, #FFD2B0 93%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: fxOrbit 8s linear infinite;
+}
+@keyframes fxOrbit { to { --fx-orbit: 360deg; } }
+@media print { .f50.fx-live::after { display: none; } }
 
 /* ── 7. Contact section embers ─────────────────────────────────────────── */
 

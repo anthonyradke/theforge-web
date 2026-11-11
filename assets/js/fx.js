@@ -229,6 +229,34 @@
   });
 
   /* ── 6. Pricing card tilt and founding border ────────────────────────── */
+  block(() => {
+    // The founding border only animates while it is on screen.
+    const f50 = $('.f50');
+    if (f50 && !reduce && hasIO) {
+      whileVisible(f50, () => f50.classList.add('fx-live'), () => f50.classList.remove('fx-live'));
+    }
+
+    // Tilt needs a mouse: on touch screens the cards stay flat.
+    if (reduce || !finePointer) return;
+    $$('.plan').forEach((card) => {
+      card.classList.add('fx-tilt');
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ry', ((x - 0.5) * 4.5).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((0.5 - y) * 4).toFixed(2) + 'deg');
+        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+        card.classList.add('is-tilting');
+      });
+      card.addEventListener('pointerleave', () => {
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  });
 
   /* ── 7. Contact section embers ───────────────────────────────────────── */
 
