@@ -350,27 +350,14 @@ em { font-style: italic; }
 }
 .site-header.is-stuck .site-header__inner { min-height: 64px; }
 
-.brand { display: flex; align-items: center; gap: .7rem; }
-.brand__mark { width: 52px; height: auto; flex: none; transition: transform .4s var(--e-out); }
-.brand__text { display: flex; flex-direction: column; line-height: 1; }
-.brand__name {
-  color: var(--bone);
-  font: 400 1.32rem/1 var(--f-display);
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  transition: color .2s;
+.brand { display: flex; align-items: center; }
+.brand__logo {
+  width: auto; height: 64px;
+  flex: none;
+  transition: height .35s var(--e-out), filter .3s;
 }
-.brand__sub {
-  margin-top: 3px;
-  color: var(--ember);
-  font: 700 .66rem/1 var(--f-cond);
-  letter-spacing: .3em;
-  text-transform: uppercase;
-}
-.brand:hover .brand__name { color: #fff; }
-
-.fm__steel { fill: var(--bone); }
-.brand:hover .brand__mark { transform: scale(1.06); }
+.site-header.is-stuck .brand__logo { height: 54px; }
+.brand:hover .brand__logo { filter: brightness(1.12); }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
 .nav__list { display: flex; align-items: center; gap: 1.7rem; }
@@ -534,7 +521,7 @@ em { font-style: italic; }
 
 .hero__badge { justify-self: end; opacity: .9; }
 .hero__badge-mark {
-  width: clamp(220px, 25vw, 360px);
+  width: clamp(340px, 40vw, 600px);
   height: auto;
   filter: drop-shadow(0 26px 60px rgba(0,0,0,.85));
   animation: float 7s var(--e-io) infinite;
@@ -1437,7 +1424,7 @@ em { font-style: italic; }
   gap: clamp(2rem, 5vw, 4rem);
   padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
-.site-footer__mark { width: 92px; height: auto; margin-bottom: 1.25rem; }
+.site-footer__mark { width: 150px; height: auto; margin-bottom: 1.25rem; }
 .site-footer__tag {
   margin-bottom: .6rem;
   color: var(--bone);
@@ -1682,9 +1669,8 @@ em { font-style: italic; }
   .cards      { grid-template-columns: 1fr; }
   .site-footer__nav { grid-template-columns: repeat(2, 1fr); }
   .about__media-row { grid-template-columns: 1fr; }
-  .brand__mark { width: 44px; }
-  .brand__name { font-size: 1.12rem; }
-  .brand__sub { font-size: .58rem; letter-spacing: .24em; }
+  .brand__logo,
+  .site-header.is-stuck .brand__logo { height: 48px; }
 }
 
 /* ── 24. Reduced motion & print ────────────────────────────────────────── */

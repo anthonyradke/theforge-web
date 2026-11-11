@@ -21,7 +21,7 @@
   <rect width="1200" height="630" fill="url(#glow)"/>
 
   <!-- mark -->
-  <image href="logo.png" x="840" y="190" width="300" height="226"/>
+  <image href="anvil-3d.png" x="800" y="200" width="360" height="196"/>
 
   <g font-family="Anton, 'Arial Narrow', Impact, sans-serif" text-transform="uppercase">
     <rect x="84" y="140" width="54" height="4" fill="#D8232A"/>
