@@ -385,6 +385,8 @@ em { font-style: italic; }
   transform: scaleX(1);
   transform-origin: left;
 }
+/* Sub-section links: mobile menu only (see the drawer rules in section 23). */
+.nav__sub { display: none; }
 
 .nav-toggle {
   display: none;
@@ -2014,6 +2016,20 @@ em { font-style: italic; }
     letter-spacing: .16em;
   }
   .nav__list a::after { display: none; }
+  .nav__list a.is-active { color: var(--ember); }
+  .nav__sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+    margin: -.4rem 0 .7rem;
+  }
+  .nav__list .nav__sub li { border-bottom: 0; }
+  .nav__list .nav__sub a {
+    padding: .6rem 0;
+    color: var(--smoke);
+    font-size: .8rem;
+    letter-spacing: .14em;
+  }
   .nav__cta { justify-content: center; }
   .nav-toggle { display: grid; place-items: center; z-index: 57; }
 

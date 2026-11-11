@@ -78,14 +78,37 @@
     </a>
 
     <nav class="nav" id="nav" aria-label="Main">
+      <!-- One link per stretch of the page. The nested lists only show in the
+           mobile menu. Each section's data-nav says which link it lights up. -->
       <ul class="nav__list">
-        <li><a href="#about">The Forge</a></li>
-        <li><a href="#story">Story</a></li>
-        <li><a href="#training">Training</a></li>
-        <li><a href="#clubs">Iron Clubs</a></li>
-        <li><a href="#membership">Membership</a></li>
-        <li><a href="#coaching">Coaching</a></li>
-        <li><a href="#team">Founder</a></li>
+        <li>
+          <a href="#about">About</a>
+          <ul class="nav__sub">
+            <li><a href="#purpose">Our Purpose</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#team">The Founder</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#training">Training</a>
+          <ul class="nav__sub">
+            <li><a href="#equipment">Equipment</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#clubs">Iron Clubs</a>
+          <ul class="nav__sub">
+            <li><a href="#records">Records Board</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#membership">Membership</a>
+          <ul class="nav__sub">
+            <li><a href="#founding">Founding 50</a></li>
+            <li><a href="#coaching">Coaching &amp; Recovery</a></li>
+          </ul>
+        </li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
       <a class="btn btn--sm btn--primary nav__cta" href="#founding">Founding 50</a>
     </nav>
@@ -235,7 +258,7 @@
 </div>
 
 <!-- ═══════════════════ ABOUT / OVERVIEW ═══════════════════ -->
-<section class="section" id="about">
+<section class="section" id="about" data-nav="about">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 01 · The Forge</p>
@@ -290,7 +313,7 @@
 </section>
 
 <!-- ═══════════════════ PURPOSE: BUILD MORE THAN MUSCLE ═══════════════════ -->
-<section class="section section--alt" id="purpose">
+<section class="section section--alt" id="purpose" data-nav="about">
   <div class="wrap">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 02 · Our Purpose</p>
@@ -345,7 +368,7 @@
 </section>
 
 <!-- ═══════════════════ STORY ═══════════════════ -->
-<section class="section" id="story">
+<section class="section" id="story" data-nav="about">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 03 · Our Story</p>
@@ -414,7 +437,7 @@
 </section>
 
 <!-- ═══════════════════ FOUNDER ═══════════════════ -->
-<section class="section section--alt" id="team">
+<section class="section section--alt" id="team" data-nav="about">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 04 · The Founder</p>
@@ -467,7 +490,7 @@
 </section>
 
 <!-- ═══════════════════ TRAINING ═══════════════════ -->
-<section class="section" id="training">
+<section class="section" id="training" data-nav="training">
   <div class="wrap">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 05 · Training</p>
@@ -551,7 +574,7 @@
 </section>
 
 <!-- ═══════════════════ IRON CLUBS & RECORDS ═══════════════════ -->
-<section class="section section--alt clubs" id="clubs">
+<section class="section section--alt clubs" id="clubs" data-nav="clubs">
   <div class="wrap">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 06 · Iron Clubs &amp; Records</p>
@@ -597,7 +620,7 @@
     </div>
 
     <!-- All-time records board -->
-    <div class="records">
+    <div class="records" id="records">
       <div class="records__copy reveal">
         <p class="records__k">The Wall of Records</p>
         <h3 class="records__title">The strongest leave their mark.</h3>
@@ -634,7 +657,7 @@
 </section>
 
 <!-- ═══════════════════ MEMBERSHIP ═══════════════════ -->
-<section class="section" id="membership">
+<section class="section" id="membership" data-nav="membership">
   <div class="wrap">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 07 · Membership</p>
@@ -741,7 +764,7 @@
 </section>
 
 <!-- ═══════════════════ COACHING & RECOVERY ═══════════════════ -->
-<section class="section section--alt" id="coaching">
+<section class="section section--alt" id="coaching" data-nav="membership">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 08 · Coaching &amp; Recovery</p>
@@ -802,7 +825,7 @@
 </section>
 
 <!-- ═══════════════════ FAQ ═══════════════════ -->
-<section class="section" id="faq">
+<section class="section" id="faq" data-nav="faq">
   <div class="wrap wrap--narrow">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 09 · Questions</p>

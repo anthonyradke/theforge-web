@@ -297,23 +297,25 @@ const FOUNDING = {
     });
   }
 
-  /* ── Scroll spy (highlights the current section in the nav) ──────────── */
-  const navLinks = $$('.nav__list a[href^="#"]');
-  const sections = navLinks
-    .map((a) => document.getElementById(a.getAttribute('href').slice(1)))
-    .filter(Boolean);
+  /* ── Scroll spy (highlights the current group in the nav) ──────────────
+     The nav has one link per stretch of the page, not per section. Each
+     section names its link in data-nav; sections without one (hero, stats,
+     contact) clear the highlight. */
+  const navLinks = $$('.nav__list > li > a[href^="#"]');
+  const spied = $$('main > section');
 
-  if (sections.length && 'IntersectionObserver' in window) {
+  if (navLinks.length && spied.length && 'IntersectionObserver' in window) {
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+        const group = '#' + (entry.target.dataset.nav || '');
         navLinks.forEach((a) => {
-          a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
+          a.classList.toggle('is-active', a.getAttribute('href') === group);
         });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
 
-    sections.forEach((s) => spy.observe(s));
+    spied.forEach((s) => spy.observe(s));
   }
 
   /* ── Hero embers ─────────────────────────────────────────────────────── */
