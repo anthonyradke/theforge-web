@@ -359,6 +359,122 @@ const CONFIG = {
     });
   }
 
+  /* ── Forge anvil: hammer strikes, sparks, tilt ───────────────────────── */
+  const forge = $('#forge');
+
+  if (forge && !reduceMotion) {
+    const sparkCanvas = $('#sparks');
+    const sctx = sparkCanvas.getContext('2d');
+    const anvilSvg = $('.forge__anvil', forge);
+    const STRIKE = { x: 520, y: 89 };           // strike point in anvil viewBox units
+    const VB = { x: -6, y: -6, w: 652, h: 366 };
+    let sparks = [], sw = 0, sh = 0, sdpr = 1, sraf = null, visible = true, timer = null;
+
+    const sizeSparks = () => {
+      sdpr = Math.min(window.devicePixelRatio || 1, 2);
+      sw = sparkCanvas.offsetWidth;
+      sh = sparkCanvas.offsetHeight;
+      sparkCanvas.width = sw * sdpr;
+      sparkCanvas.height = sh * sdpr;
+      sctx.setTransform(sdpr, 0, 0, sdpr, 0, 0);
+    };
+
+    // Strike point in canvas pixels (the canvas overhangs the stage by 20%).
+    const strikeOrigin = () => {
+      const c = sparkCanvas.getBoundingClientRect();
+      const a = anvilSvg.getBoundingClientRect();
+      return {
+        x: a.left - c.left + ((STRIKE.x - VB.x) / VB.w) * a.width,
+        y: a.top - c.top + ((STRIKE.y - VB.y) / VB.h) * a.height
+      };
+    };
+
+    const burst = () => {
+      const o = strikeOrigin();
+      const n = 44 + Math.floor(Math.random() * 20);
+      for (let i = 0; i < n; i++) {
+        const ang = -Math.PI / 2 + (Math.random() - 0.5) * 2.4;
+        const sp = 2.6 + Math.random() * 7;
+        sparks.push({
+          x: o.x + (Math.random() - 0.5) * 30, y: o.y,
+          vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+          life: 1, decay: 0.012 + Math.random() * 0.02,
+          w: 0.8 + Math.random() * 1.4
+        });
+      }
+      if (!sraf) sraf = requestAnimationFrame(tick);
+    };
+
+    function tick() {
+      sctx.clearRect(0, 0, sw, sh);
+      sctx.globalCompositeOperation = 'lighter';
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const p = sparks[i];
+        const px = p.x, py = p.y;
+        p.vy += 0.16; p.vx *= 0.985; p.vy *= 0.985;
+        p.x += p.vx; p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0) { sparks.splice(i, 1); continue; }
+        const hue = 18 + p.life * 30;                // white-gold cooling to red
+        const light = 50 + p.life * 40;
+        sctx.strokeStyle = `hsla(${hue}, 100%, ${light}%, ${p.life})`;
+        sctx.lineWidth = p.w;
+        sctx.lineCap = 'round';
+        sctx.beginPath();
+        sctx.moveTo(px - p.vx * 1.6, py - p.vy * 1.6);
+        sctx.lineTo(p.x, p.y);
+        sctx.stroke();
+      }
+      sctx.globalCompositeOperation = 'source-over';
+      sraf = sparks.length ? requestAnimationFrame(tick) : null;
+      if (!sraf) sctx.clearRect(0, 0, sw, sh);
+    }
+
+    const strike = () => {
+      forge.classList.remove('is-strike');
+      void forge.offsetWidth;                         // restart the CSS animations
+      forge.classList.add('is-strike');
+      burst();
+    };
+
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!visible || document.hidden) return;
+      timer = setTimeout(() => { strike(); schedule(); }, 3800 + Math.random() * 2600);
+    };
+
+    sizeSparks();
+    window.addEventListener('resize', sizeSparks);
+    forge.addEventListener('click', () => { strike(); schedule(); });
+
+    // First strike lands once the entrance animation has drawn the anvil.
+    setTimeout(() => { if (visible && !document.hidden) strike(); schedule(); }, 2600);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        visible ? schedule() : clearTimeout(timer);
+      }).observe(forge);
+    }
+    document.addEventListener('visibilitychange', schedule);
+
+    // Subtle tilt toward the pointer.
+    const hero = $('.hero');
+    if (hero && window.matchMedia('(hover: hover)').matches) {
+      hero.addEventListener('pointermove', (e) => {
+        const r = forge.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+        const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+        forge.style.setProperty('--ry', (dx * 10).toFixed(2) + 'deg');
+        forge.style.setProperty('--rx', (-dy * 8).toFixed(2) + 'deg');
+      });
+      hero.addEventListener('pointerleave', () => {
+        forge.style.setProperty('--ry', '0deg');
+        forge.style.setProperty('--rx', '0deg');
+      });
+    }
+  }
+
   /* ── Contact form ────────────────────────────────────────────────────── */
   const form = $('#contactForm');
 

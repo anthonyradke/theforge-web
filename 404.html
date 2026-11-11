@@ -84,7 +84,7 @@
 </head>
 <body>
   <div class="box">
-    <img class="mark" id="mark" src="assets/img/anvil-3d-640.webp" width="640" height="349" alt="">
+    <img class="mark" id="mark" src="assets/img/anvil.svg" width="652" height="366" alt="">
 
     <p class="code">404</p>
     <h1>Failed rep. <em>Reset and go again.</em></h1>
@@ -109,7 +109,7 @@
     var isProjectPage = /\.github\.io$/.test(location.hostname) && parts.length > 0;
     var root = isProjectPage ? '/' + parts[0] + '/' : '/';
     document.getElementById('home').setAttribute('href', root);
-    document.getElementById('mark').setAttribute('src', root + 'assets/img/anvil-3d-640.webp');
+    document.getElementById('mark').setAttribute('src', root + 'assets/img/anvil.svg');
   })();
 </script>
 </body>
