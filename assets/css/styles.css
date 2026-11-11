@@ -370,8 +370,6 @@ em { font-style: italic; }
 .brand:hover .brand__name { color: #fff; }
 
 .fm__steel { fill: var(--bone); }
-.fm__ember { fill: var(--ember); }
-.fm__anvil { }
 .brand__mark .fm { transform-origin: 50% 50%; transition: transform .4s var(--e-out); }
 .brand:hover .brand__mark .fm { transform: scale(1.06); }
 
