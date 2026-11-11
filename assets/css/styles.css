@@ -498,6 +498,35 @@ em { font-style: italic; }
   margin-bottom: 2.5rem;
 }
 
+/* Founding 50 availability under the hero buttons */
+.spots {
+  display: inline-grid;
+  gap: .6rem;
+  margin: -1rem 0 2.25rem;
+  color: var(--smoke);
+  font: 600 .8rem/1.4 var(--f-cond);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: color .25s;
+}
+.spots strong { color: var(--ember); font-weight: 700; }
+.spots:hover { color: var(--bone); }
+.spots__bar {
+  display: block;
+  width: min(100%, 22rem);
+  height: 4px;
+  border-radius: 999px;
+  background: var(--steel-700);
+  overflow: hidden;
+}
+.spots__bar[hidden] { display: none; }
+.spots__fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--ember-deep), var(--ember-hot));
+}
+
 .hero__verse {
   display: flex;
   align-items: baseline;
@@ -791,14 +820,18 @@ em { font-style: italic; }
   align-items: start;
 }
 .checks { margin-top: 2rem; display: grid; gap: .85rem; }
-.checks li {
+.ticks { display: grid; gap: .7rem; }
+.checks li,
+.ticks li {
   position: relative;
   padding-left: 2rem;
   color: var(--bone-dim);
   font-size: .97rem;
   line-height: 1.55;
 }
-.checks li::before {
+.ticks li { padding-left: 1.75rem; font-size: .93rem; }
+.checks li::before,
+.ticks li::before {
   content: "";
   position: absolute;
   left: 0; top: .48em;
@@ -1152,82 +1185,293 @@ em { font-style: italic; }
   letter-spacing: .05em;
   text-transform: uppercase;
 }
-.club__cross {
-  margin: .5rem 0 .35rem;
-  color: var(--ember);
-  font-size: 1.4rem;
-  line-height: 1;
-}
 .club__motto {
   color: var(--bone-dim);
   font: 600 .84rem/1.55 var(--f-cond);
   letter-spacing: .22em;
   text-transform: uppercase;
 }
-.clubs__note {
+.clubs__earn {
   max-width: 46rem;
   margin: clamp(2rem, 4vw, 3rem) auto 0;
-  color: var(--smoke);
-  font-size: .92rem;
   text-align: center;
 }
+.clubs__earn p { color: var(--bone-dim); font-size: 1rem; line-height: 1.7; }
+.clubs__tag,
+.records__push,
+.more__tag {
+  margin: 1.1rem 0 0;
+  color: var(--bone) !important;
+  font: 400 clamp(1.15rem, 2vw, 1.45rem)/1.2 var(--f-display) !important;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
 
-/* ── 17. Membership (pre-opening: no pricing published yet) ────────────── */
-.founding {
+.records {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--steel-800);
-  border: var(--hair);
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  border-top: var(--hair);
 }
-.founding__item {
-  position: relative;
-  padding: clamp(1.75rem, 3.2vw, 2.5rem);
-  background: var(--ink);
-  transition: background .35s var(--e-out);
-}
-.founding__item::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%; height: 3px;
-  background: linear-gradient(90deg, var(--ember), var(--ember-hot));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--e-out);
-}
-.founding__item:hover { background: var(--steel-900); }
-.founding__item:hover::before { transform: scaleX(1); }
-.founding__k {
-  display: block;
-  margin-bottom: .9rem;
+.records__k,
+.f50__k,
+.f50__perks-k,
+.plan__name,
+.extra__k,
+.panel__k {
+  margin: 0 0 .8rem;
   color: var(--ember);
-  font: 700 .76rem/1.4 var(--f-cond);
+  font: 700 .78rem/1.4 var(--f-cond);
   letter-spacing: .22em;
   text-transform: uppercase;
 }
-.founding__item p {
-  font-size: .95rem;
-  line-height: 1.68;
-}
+.records__title { margin-bottom: 1.1rem; font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: .95; }
+.records__copy p:not(.records__k):not(.lead):not(.records__push) { color: var(--bone-dim); font-size: .97rem; line-height: 1.7; }
 
-.founding__cta {
-  display: grid;
-  justify-items: center;
-  gap: 1rem;
-  margin-top: clamp(2rem, 4vw, 3rem);
-  text-align: center;
+.board {
+  border: 1px solid var(--steel-600);
+  border-radius: var(--r-lg);
+  background:
+    repeating-linear-gradient(118deg, rgba(255,255,255,.02) 0 1px, transparent 1px 7px),
+    linear-gradient(170deg, var(--steel-850), var(--ink) 80%);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.05);
+  overflow: hidden;
 }
-.founding__cta p {
+.board__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
   margin: 0;
-  color: var(--smoke-dim);
-  font: 600 .76rem/1.5 var(--f-cond);
-  letter-spacing: .18em;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 3px solid var(--ember);
+  font: 400 clamp(1.3rem, 2.4vw, 1.7rem)/1 var(--f-display);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.board__sub {
+  color: var(--smoke);
+  font: 600 .72rem/1 var(--f-cond);
+  letter-spacing: .2em;
+}
+.board__rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--steel-800);
+}
+.board__lift {
+  font: 400 clamp(1.4rem, 2.6vw, 1.9rem)/1 var(--f-display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.board__holder {
+  padding: .4rem .75rem;
+  border: 1px dashed var(--steel-600);
+  border-radius: var(--r);
+  color: var(--ember);
+  font: 700 .74rem/1 var(--f-cond);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.board__foot {
+  margin: 0;
+  padding: 1rem 1.5rem 1.2rem;
+  color: var(--smoke);
+  font-size: .85rem;
+}
+.clubs__closer {
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+  color: var(--bone);
+  font: 400 clamp(1.6rem, 4vw, 2.8rem)/1 var(--f-display);
+  letter-spacing: .04em;
+  text-align: center;
   text-transform: uppercase;
 }
 
+/* ── 17. Membership ───────────────────────────────────────────────────── */
+/* The Founding 50 */
+.f50 {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  overflow: hidden;
+  border: 1px solid var(--ember);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(70% 90% at 0% 0%, rgba(216,35,42,.16), transparent 60%),
+    var(--ink);
+  box-shadow: 0 30px 70px -30px rgba(216,35,42,.45);
+}
+.f50__main { padding: clamp(1.75rem, 4vw, 3rem); }
+.f50__price {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  margin: 0 0 1.25rem;
+}
+.f50__amt {
+  font: 400 clamp(4rem, 9vw, 6.2rem)/.85 var(--f-display);
+  background: linear-gradient(172deg, #FFF 4%, #D3D6DB 24%, #7C818A 50%, #F2F4F7 64%, #6B7078 86%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-block: .15em;
+  margin-block: -.15em;
+}
+.f50__per {
+  color: var(--bone-dim);
+  font: 700 .95rem/1.25 var(--f-cond);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.f50__title { margin-bottom: 1rem; font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.05; }
+.f50__main > p:not(.f50__k):not(.f50__price) { color: var(--bone-dim); font-size: .97rem; line-height: 1.7; }
+.f50__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 1.75rem;
+}
+.f50__scarce {
+  margin: 0;
+  max-width: 17rem;
+  color: var(--smoke);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+.f50__scarce strong { display: block; color: var(--bone); }
+.f50__perks {
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-left: 1px solid var(--steel-700);
+  background: rgba(255,255,255,.015);
+}
+
+/* Standard and Flex */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+.plan {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 3vw, 2.25rem);
+  border: var(--hair);
+  border-radius: var(--r-lg);
+  background: linear-gradient(165deg, var(--steel-900), var(--ink) 70%);
+  transition: border-color .35s, transform .35s var(--e-out);
+}
+.plan:hover { border-color: var(--steel-600); transform: translateY(-4px); }
+.plan__price {
+  margin: 0 0 .35rem;
+  color: var(--smoke);
+  font: 600 .9rem/1 var(--f-cond);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.plan__price span {
+  color: var(--bone);
+  font: 400 clamp(2.6rem, 5vw, 3.4rem)/1 var(--f-display);
+  letter-spacing: .01em;
+}
+.plan__tag {
+  margin: 0 0 1.4rem;
+  padding-bottom: 1.2rem;
+  border-bottom: var(--hair);
+  color: var(--bone);
+  font: 700 1rem/1.3 var(--f-cond);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.plan__link { margin-top: auto; padding-top: 1.5rem; align-self: flex-start; }
+
+/* Discounts, passes, closing line */
+.extras {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+.extra {
+  padding: clamp(1.6rem, 3vw, 2.25rem);
+  border: var(--hair);
+  border-radius: var(--r-lg);
+  background: var(--ink);
+}
+.extra__title { margin-bottom: .8rem; font-size: clamp(1.3rem, 2.3vw, 1.65rem); }
+.extra p:not(.extra__k) { color: var(--bone-dim); font-size: .95rem; line-height: 1.68; }
+.passes { display: grid; gap: .5rem; margin-bottom: 1rem; }
+.passes li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--steel-800);
+  color: var(--bone-dim);
+  font: 600 .9rem/1 var(--f-cond);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.passes strong {
+  color: var(--bone);
+  font: 400 1.9rem/1 var(--f-display);
+  letter-spacing: .02em;
+}
+.more {
+  max-width: 44rem;
+  margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+  text-align: center;
+}
+.more__title { margin-bottom: .9rem; font-size: clamp(1.6rem, 3.2vw, 2.3rem); }
+.more p { color: var(--bone-dim); font-size: 1rem; line-height: 1.7; }
+
+/* ── 17b. Coaching & recovery ──────────────────────────────────────────── */
+.coach-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 3vw, 2.25rem);
+  border: var(--hair);
+  border-radius: var(--r-lg);
+  background: linear-gradient(165deg, var(--steel-900), var(--ink) 70%);
+}
+.panel__title { margin-bottom: 1rem; font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
+.panel p:not(.panel__k):not(.panel__meta) { color: var(--bone-dim); font-size: .95rem; line-height: 1.68; }
+.panel .ticks { margin-bottom: 1.5rem; }
+.panel .link-arrow { margin-top: auto; align-self: flex-start; }
+.panel--soon { border-style: dashed; border-color: var(--steel-600); }
+.panel__meta {
+  margin: auto 0 0;
+  padding-top: .5rem;
+  color: var(--smoke-dim);
+  font: 600 .74rem/1.4 var(--f-cond);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.soon {
+  display: inline-block;
+  margin-right: .5rem;
+  padding: .25rem .5rem;
+  border-radius: var(--r);
+  background: var(--ember);
+  color: #fff;
+  font-size: .68rem;
+  letter-spacing: .18em;
+  vertical-align: 1px;
+}
+.coaching .panel__k { margin-bottom: .5rem; }
 
 /* ── 18. Founder ───────────────────────────────────────────────────────── */
 .founder {
@@ -1698,8 +1942,6 @@ em { font-style: italic; }
   /* Three pillars stay side by side here; they collapse at 940px instead. */
   .pillars--three { grid-template-columns: repeat(3, 1fr); }
   .cards      { grid-template-columns: repeat(2, 1fr); }
-  /* Three founding items too — 2 columns would orphan the third. */
-  .founding   { grid-template-columns: repeat(3, 1fr); }
   .nav__list  { gap: 1.15rem; }
   .nav__list a { font-size: .78rem; letter-spacing: .12em; }
 }
@@ -1819,7 +2061,16 @@ em { font-style: italic; }
   .coaching__cta { padding-left: 0; border-left: 0; padding-top: 1.25rem; border-top: var(--hair); }
 
   .pillars--three { grid-template-columns: 1fr; }
-  .founding { grid-template-columns: 1fr; }
+  .f50,
+  .records,
+  .plans,
+  .extras,
+  .coach-grid { grid-template-columns: 1fr; }
+  .f50__perks { border-left: 0; border-top: 1px solid var(--steel-700); }
+  /* Long button labels wrap instead of pushing the page sideways. */
+  .f50__cta .btn,
+  .coaching__cta .btn { white-space: normal; line-height: 1.3; text-align: center; width: 100%; }
+  .spots { margin-top: -.75rem; }
   .clubs__grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
 }
 

@@ -26,6 +26,18 @@ const CONFIG = {
   CONTACT_EMAIL: 'hello@theforgestrength.com'
 };
 
+/* ── FOUNDING 50 ────────────────────────────────────────────────────────
+   Remaining founding memberships. Leave SPOTS_LEFT as null until founding
+   sales open and the count is tracked: the page then just says "Only 50".
+   Once it's a real number (e.g. 37), the hero shows "37 of 50 left" with a
+   progress bar, and 0 shows "All 50 claimed". Only set it to a number that
+   is actually being kept up to date.
+   ──────────────────────────────────────────────────────────────────────── */
+const FOUNDING = {
+  TOTAL: 50,
+  SPOTS_LEFT: null
+};
+
 (function () {
   'use strict';
 
@@ -250,6 +262,39 @@ const CONFIG = {
 
       counters.forEach((el) => countObserver.observe(el));
     }
+  }
+
+  /* ── Founding 50 availability ─────────────────────────────────────── */
+  const left = FOUNDING.SPOTS_LEFT;
+  if (Number.isInteger(left) && left >= 0) {
+    const total = FOUNDING.TOTAL;
+    const n = Math.min(left, total);
+    const text = n === 0
+      ? `All ${total} founding memberships claimed`
+      : `${n} of ${total} founding memberships left`;
+    $$('[data-spots-text]').forEach((el) => { el.textContent = text + '.'; });
+    $$('[data-spots]').forEach((el) => {
+      const t = $('[data-spots-text]', el);
+      if (t) t.textContent = text;
+      const bar = $('.spots__bar', el);
+      const fill = $('[data-spots-fill]', el);
+      if (bar && fill) {
+        bar.hidden = false;
+        fill.style.width = ((total - n) / total * 100) + '%';
+      }
+    });
+  }
+
+  /* ── Buttons that preselect the form's "interested in" option ──────── */
+  const interest = $('#fInterest');
+  if (interest) {
+    $$('[data-interest]').forEach((a) => {
+      a.addEventListener('click', () => {
+        const want = a.dataset.interest;
+        const opt = Array.from(interest.options).find((o) => o.value === want);
+        if (opt) interest.value = want;
+      });
+    });
   }
 
   /* ── Scroll spy (highlights the current section in the nav) ──────────── */
@@ -541,7 +586,7 @@ const CONFIG = {
 
       const href =
         `mailto:${CONFIG.CONTACT_EMAIL}` +
-        `?subject=${encodeURIComponent('Founding member inquiry — ' + data.name)}` +
+        `?subject=${encodeURIComponent(data.interest + ' — ' + data.name)}` +
         `&body=${encodeURIComponent(body)}`;
 
       window.location.href = href;
@@ -587,8 +632,8 @@ const CONFIG = {
 
         form.reset();
         setStatus(
-          "You're on the list. We'll be in touch with founding member details, " +
-          'the opening date, and your walkthrough invite.',
+          "Got it. We'll be in touch soon about " + data.interest.toLowerCase() +
+          ', the opening date, and everything else you asked about.',
           'ok'
         );
       } catch (err) {

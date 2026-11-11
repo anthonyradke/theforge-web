@@ -64,8 +64,8 @@
 <div class="announce" role="region" aria-label="Announcement">
   <div class="wrap announce__inner">
     <span class="announce__pulse" aria-hidden="true"></span>
-    <p><strong>Coming to Piedmont, SC — early 2027.</strong> <span class="announce__more">The founding member list is open.</span></p>
-    <a class="announce__link" href="#contact">Get on the list <span aria-hidden="true">→</span></a>
+    <p><strong>Coming to Piedmont, SC — early 2027.</strong> <span class="announce__more">The Founding 50: $55/month for life.</span></p>
+    <a class="announce__link" href="#founding">Claim a spot <span aria-hidden="true">→</span></a>
   </div>
 </div>
 
@@ -79,14 +79,14 @@
     <nav class="nav" id="nav" aria-label="Main">
       <ul class="nav__list">
         <li><a href="#about">The Forge</a></li>
-        <li><a href="#purpose">Purpose</a></li>
         <li><a href="#story">Story</a></li>
         <li><a href="#training">Training</a></li>
         <li><a href="#clubs">Iron Clubs</a></li>
         <li><a href="#membership">Membership</a></li>
+        <li><a href="#coaching">Coaching</a></li>
         <li><a href="#team">Founder</a></li>
       </ul>
-      <a class="btn btn--sm btn--primary nav__cta" href="#contact">Join the List</a>
+      <a class="btn btn--sm btn--primary nav__cta" href="#founding">Founding 50</a>
     </nav>
 
     <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
@@ -123,9 +123,17 @@
       </p>
 
       <div class="hero__actions reveal" data-delay="3">
-        <a class="btn btn--primary btn--lg" href="#contact">Join the Founding List</a>
-        <a class="btn btn--ghost btn--lg" href="#about">See what we're building</a>
+        <a class="btn btn--primary btn--lg" href="#founding">Become a Founding Member</a>
+        <a class="btn btn--ghost" href="#equipment">Explore Our Equipment</a>
+        <a class="btn btn--ghost" href="#about">Meet The Forge</a>
       </div>
+
+      <!-- Founding spots indicator. Shows "Only 50 founding memberships" until
+           FOUNDING.SPOTS_LEFT is set in main.js; then it shows the live count. -->
+      <a class="spots reveal" data-delay="3" href="#founding" data-spots>
+        <span class="spots__label"><strong data-spots-text>Only 50 founding memberships</strong> &middot; $55/month for life</span>
+        <span class="spots__bar" aria-hidden="true" hidden><span class="spots__fill" data-spots-fill></span></span>
+      </a>
 
       <p class="hero__verse reveal" data-delay="4">
         <span class="hero__verse-mark" aria-hidden="true">&#10013;</span>
@@ -434,10 +442,10 @@
         </span>
         <h3 class="card__title">Personal Training</h3>
         <p class="card__body">
-          Independent trainers and coaches work out of The Forge for members who
-          want more help — whether that's learning the lifts or preparing to compete.
+          One-on-one training plus powerlifting and bodybuilding coaching, built
+          around your goals — from your first week to your next competition.
         </p>
-        <p class="card__meta">Available to members</p>
+        <p class="card__meta">Ask about packages</p>
       </li>
       <li class="card reveal" data-delay="2">
         <span class="card__icon" aria-hidden="true">
@@ -464,7 +472,7 @@
     </ul>
 
     <!-- Equipment -->
-    <div class="equipment">
+    <div class="equipment" id="equipment">
       <div class="equipment__head reveal">
         <h3 class="equipment__title">What's on the floor</h3>
         <p>
@@ -488,15 +496,16 @@
   </div>
 </section>
 
-<!-- ═══════════════════ IRON CLUBS ═══════════════════ -->
+<!-- ═══════════════════ IRON CLUBS & RECORDS ═══════════════════ -->
 <section class="section clubs" id="clubs">
   <div class="wrap">
     <div class="section__head section__head--center">
-      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 05 — The Iron Clubs</p>
+      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 05 — Iron Clubs &amp; Records</p>
       <h2 class="section__title reveal" data-delay="1">Earn the shirt.</h2>
       <p class="section__intro reveal" data-delay="2">
-        You can't buy these. Hit the number in the gym, in front of a coach, and your name
-        goes on the board and a shirt goes on your back. That's the only way in.
+        Some things can't be bought. They have to be earned. The Iron Clubs are reserved
+        for lifters who prove their strength under the bar. Hit the required weight inside
+        The Forge, in front of a coach, and earn your place among the strongest.
       </p>
     </div>
 
@@ -505,7 +514,6 @@
         <div class="club__plate">
           <span class="club__number">405</span>
           <span class="club__name">Bench Club</span>
-          <span class="club__cross" aria-hidden="true">&#10013;</span>
           <span class="club__motto">Press on.<br>Be relentless.</span>
         </div>
       </li>
@@ -513,7 +521,6 @@
         <div class="club__plate">
           <span class="club__number">600</span>
           <span class="club__name">Deadlift Club</span>
-          <span class="club__cross" aria-hidden="true">&#10013;</span>
           <span class="club__motto">Pull more.<br>Be more.</span>
         </div>
       </li>
@@ -521,16 +528,54 @@
         <div class="club__plate">
           <span class="club__number">1500</span>
           <span class="club__name">LB Club</span>
-          <span class="club__cross" aria-hidden="true">&#10013;</span>
           <span class="club__motto">Earned.<br>Never given.</span>
         </div>
       </li>
     </ul>
 
-    <p class="clubs__note reveal">
-      Three clubs to start. More will be added as The Forge builds its own culture —
-      earned the same way these were.
-    </p>
+    <div class="clubs__earn reveal">
+      <p>
+        Your name goes on the wall. An exclusive Iron Club shirt goes on your back. And
+        you've earned the right to wear something money can't buy. No shortcuts. No
+        handouts. Just iron and effort.
+      </p>
+      <p class="clubs__tag">Put in the work. Hit the number. Earn the shirt.</p>
+    </div>
+
+    <!-- All-time records board -->
+    <div class="records">
+      <div class="records__copy reveal">
+        <p class="records__k">The Wall of Records</p>
+        <h3 class="records__title">The strongest leave their mark.</h3>
+        <p class="lead">
+          Think you have what it takes to be one of the strongest lifters in The Forge?
+        </p>
+        <p>
+          Our All-Time Records Board showcases the heaviest squat, bench press and deadlift
+          ever performed in our gym, separated by weight class.
+        </p>
+        <p>
+          Every record is a challenge. Every name is a target. Whether you're chasing the
+          top spot or defending your place, there's always someone coming for the crown.
+        </p>
+        <p class="records__push">Step up. Move the weight. Claim your spot.</p>
+      </div>
+
+      <div class="board reveal" data-delay="1" role="group" aria-label="All-time records board">
+        <p class="board__head">
+          <span>All-Time Records</span>
+          <span class="board__sub">By weight class</span>
+        </p>
+        <ul class="board__rows">
+          <li><span class="board__lift">Squat</span><span class="board__holder">Open</span></li>
+          <li><span class="board__lift">Bench Press</span><span class="board__holder">Open</span></li>
+          <li><span class="board__lift">Deadlift</span><span class="board__holder">Open</span></li>
+        </ul>
+        <p class="board__foot">First records set when the doors open. Your name could be first.</p>
+      </div>
+    </div>
+
+    <p class="clubs__closer reveal">Records are earned. Legends are forged.</p>
   </div>
 </section>
 
@@ -539,51 +584,174 @@
   <div class="wrap">
     <div class="section__head section__head--center">
       <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 06 — Membership</p>
-      <h2 class="section__title reveal" data-delay="1">Founding memberships</h2>
+      <h2 class="section__title reveal" data-delay="1">Built for every lifter.</h2>
       <p class="section__intro reveal" data-delay="2">
-        Membership plans and pricing are still being finalized, and we'd rather tell you
-        nothing than tell you something we have to walk back. Everything will be announced
-        before the doors open — and the founding member list hears it first.
+        Whether you're chasing a new personal record, building your dream physique, or just
+        starting your fitness journey, there's a place for you at The Forge. Every membership
+        includes 24/7 access to the entire facility. No restricted areas. No premium
+        equipment tiers. Just everything you need to get stronger.
       </p>
     </div>
 
-    <ul class="founding">
-      <li class="founding__item reveal">
-        <span class="founding__k">What we can tell you now</span>
+    <!-- The Founding 50 -->
+    <div class="f50 reveal" id="founding">
+      <div class="f50__main">
+        <p class="f50__k">The Founding 50</p>
+        <p class="f50__price"><span class="f50__amt">$55</span><span class="f50__per">/ month<br>for life</span></p>
+        <h3 class="f50__title">The first 50. The foundation of The Forge.</h3>
         <p>
-          Every membership includes 24/7 access to the entire floor — the powerlifting
-          section, the machines, the free weights, all of it. No tiered access, no
-          paying extra to use half the gym.
+          Every great gym starts with a community that believes in something bigger than
+          themselves. We're giving our first 50 members the opportunity to become part of
+          The Forge's foundation, with an exclusive membership rate that stays with them
+          for life.
         </p>
+        <div class="f50__cta">
+          <a class="btn btn--primary btn--lg" href="#contact" data-interest="Founding membership">Claim your founding membership</a>
+          <p class="f50__scarce"><strong data-spots-text>Only 50 memberships available.</strong> Once they're gone, they're gone.</p>
+        </div>
+      </div>
+      <div class="f50__perks">
+        <p class="f50__perks-k">Founding member benefits</p>
+        <ul class="ticks">
+          <li>$55/month locked in for life while your membership remains active</li>
+          <li>Full 24/7 facility access</li>
+          <li>Exclusive Founding Member T-shirt</li>
+          <li>Your name permanently displayed on our Founders Wall</li>
+          <li>Invitation to a private pre-opening lifting session</li>
+          <li>$25 one-time enrollment fee</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Standard plans -->
+    <ul class="plans">
+      <li class="plan reveal">
+        <p class="plan__name">Standard Membership</p>
+        <p class="plan__price"><span>$65</span> / month</p>
+        <p class="plan__tag">Commit to the grind.</p>
+        <ul class="ticks">
+          <li>12-month membership agreement</li>
+          <li>24/7 facility access</li>
+          <li>Full access to all equipment</li>
+          <li>$25 one-time enrollment fee</li>
+        </ul>
+        <a class="link-arrow plan__link" href="#contact" data-interest="Standard membership">Ask about Standard <span aria-hidden="true">→</span></a>
       </li>
-      <li class="founding__item reveal" data-delay="1">
-        <span class="founding__k">What founding members get</span>
-        <p>
-          First look at pricing before it goes public, first crack at signing up, and an
-          invitation to walk the space before opening day.
-        </p>
-      </li>
-      <li class="founding__item reveal" data-delay="2">
-        <span class="founding__k">What it costs to join the list</span>
-        <p>
-          Nothing. No deposit, no card, no commitment. Leave your name and we'll be in
-          touch when there's something real to share.
-        </p>
+      <li class="plan reveal" data-delay="1">
+        <p class="plan__name">Flex Membership</p>
+        <p class="plan__price"><span>$85</span> / month</p>
+        <p class="plan__tag">No contract. No limits.</p>
+        <ul class="ticks">
+          <li>Month-to-month membership</li>
+          <li>No long-term commitment</li>
+          <li>24/7 facility access</li>
+          <li>Full access to all equipment</li>
+          <li>$25 one-time enrollment fee</li>
+        </ul>
+        <a class="link-arrow plan__link" href="#contact" data-interest="Flex membership">Ask about Flex <span aria-hidden="true">→</span></a>
       </li>
     </ul>
 
-    <div class="founding__cta reveal" data-delay="1">
-      <a class="btn btn--primary btn--lg" href="#contact">Join the Founding List</a>
-      <p>Pricing announced before opening &middot; no obligation</p>
+    <!-- Discounts and passes -->
+    <div class="extras">
+      <div class="extra reveal">
+        <p class="extra__k">Discounts &amp; family packages</p>
+        <h3 class="extra__title">Strength is better together.</h3>
+        <p>
+          We proudly offer special membership discounts for eligible students, military
+          members, veterans, first responders, teachers and healthcare workers. Training
+          with your spouse or family? Ask about our family membership packages.
+        </p>
+        <a class="link-arrow" href="#contact" data-interest="Discounts / family membership">Contact us to learn more <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="extra reveal" data-delay="1">
+        <p class="extra__k">Just visiting?</p>
+        <h3 class="extra__title">Train with us for a day or a week.</h3>
+        <ul class="passes">
+          <li><span>Day pass</span><strong>$15</strong></li>
+          <li><span>Week pass</span><strong>$40</strong></li>
+        </ul>
+        <p>Get the full Forge experience without a long-term commitment.</p>
+      </div>
+    </div>
+
+    <div class="more reveal">
+      <h3 class="more__title">More than a membership.</h3>
+      <p>
+        The Forge is more than a place to lift weights. It's a community built around
+        strength, encouragement, faith, and the pursuit of becoming better every day.
+      </p>
+      <p class="more__tag">Find your strength. Find your people.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COACHING & RECOVERY ═══════════════════ -->
+<section class="section" id="coaching">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 07 — Coaching &amp; Recovery</p>
+      <h2 class="section__title reveal" data-delay="1">Your goals.<br>Our guidance.</h2>
+      <p class="section__intro reveal" data-delay="2">
+        Whether you're stepping into the gym for the first time, looking to build muscle, get
+        stronger, or preparing for your next competition, our coaching is built around you.
+        From one-on-one personal training to specialized powerlifting and bodybuilding
+        coaching, we're here to help you take your training to the next level.
+      </p>
+    </div>
+
+    <div class="coach-grid">
+      <article class="panel reveal">
+        <p class="panel__k">Personal training &amp; coaching</p>
+        <h3 class="panel__title">Train with a plan.</h3>
+        <ul class="ticks">
+          <li>One-on-one personal training</li>
+          <li>Powerlifting coaching and meet prep</li>
+          <li>Bodybuilding and physique coaching</li>
+          <li>Beginners welcome, from the first session</li>
+        </ul>
+        <a class="link-arrow" href="#contact" data-interest="Personal training">Ask about training &amp; coaching packages <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="panel panel--soon reveal" data-delay="1">
+        <p class="panel__k"><span class="soon">Coming soon</span> The Recovery Room</p>
+        <h3 class="panel__title">Train hard. Recover stronger.</h3>
+        <p>
+          Progress doesn't stop when the workout ends. We're working to bring a dedicated
+          recovery room to The Forge, designed to help you recharge, recover, and come back
+          ready for your next session.
+        </p>
+        <p>
+          Because building strength isn't just about how hard you train. It's about how well
+          you recover.
+        </p>
+        <p class="panel__meta">More details coming soon</p>
+      </article>
+    </div>
+
+    <div class="coaching reveal" data-delay="1">
+      <div class="coaching__copy">
+        <p class="panel__k">Coaches wanted</p>
+        <h3 class="coaching__title">Build your business at The Forge.</h3>
+        <p>
+          Are you a personal trainer, powerlifting coach, or bodybuilding coach looking for a
+          place to grow your business? We're looking to connect with passionate,
+          knowledgeable coaches who share our commitment to helping people become stronger.
+        </p>
+      </div>
+      <div class="coaching__cta">
+        <p>Interested in training clients at The Forge? Contact us about training opportunities.</p>
+        <a class="btn btn--ghost" href="#contact" data-interest="Coaching out of The Forge">Get in touch</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════ FOUNDER ═══════════════════ -->
-<section class="section" id="team">
+<section class="section section--alt" id="team">
   <div class="wrap">
     <div class="section__head">
-      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 07 — The Founder</p>
+      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 08 — The Founder</p>
       <h2 class="section__title reveal" data-delay="1">Meet the owner</h2>
     </div>
 
@@ -629,27 +797,14 @@
       </div>
     </div>
 
-    <div class="coaching reveal" data-delay="1">
-      <div class="coaching__copy">
-        <h3 class="coaching__title">Coaching at The Forge</h3>
-        <p>
-          Independent trainers and coaches work out of The Forge, so members who want help
-          can find it without the gym dictating who they train with or what program they run.
-        </p>
-      </div>
-      <div class="coaching__cta">
-        <p>Are you a coach looking for a floor to work from?</p>
-        <a class="link-arrow" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- ═══════════════════ FAQ ═══════════════════ -->
-<section class="section section--alt" id="faq">
+<section class="section" id="faq">
   <div class="wrap wrap--narrow">
     <div class="section__head section__head--center">
-      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 08 — Questions</p>
+      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 09 — Questions</p>
       <h2 class="section__title reveal" data-delay="1">Straight answers</h2>
     </div>
 
@@ -659,7 +814,7 @@
         <div class="faq__body">
           <p>
             Piedmont, South Carolina, in the Greenville area — roughly 9,000 square feet.
-            The exact address goes out as soon as the lease is final. Join the founding
+            The exact address goes out as soon as the lease is final. Join the
             list and you'll get it the day we can share it.
           </p>
         </div>
@@ -670,7 +825,7 @@
         <div class="faq__body">
           <p>
             We're targeting early 2027. Build-out timelines move, so we'll keep the
-            founding list updated as things firm up rather than promising a date we
+            list updated as things firm up rather than promising a date we
             can't hold.
           </p>
         </div>
@@ -694,8 +849,7 @@
         <div class="faq__body">
           <p>
             No. A serious gym and a welcoming gym aren't opposites, and The Forge is being
-            built to be both. Independent coaches are on site if you want someone to teach
-            you the lifts, and nobody here has forgotten what their first week felt like.
+            built to be both. Our coaches can teach you the lifts if you want the help, and nobody here has forgotten what their first week felt like.
           </p>
         </div>
       </details>
@@ -716,9 +870,21 @@
         <summary>What will membership cost?</summary>
         <div class="faq__body">
           <p>
-            Still being finalized. Rather than post a number now and change it later, we'll
-            publish plans and pricing before opening day — and the founding member list
-            sees it first.
+            Standard membership is $65/month on a 12-month agreement. Flex is $85/month,
+            month to month. The first 50 members get the Founding rate of $55/month, locked
+            in for life while the membership stays active. Every plan has a $25 one-time
+            enrollment fee and full 24/7 access. Day passes are $15 and week passes $40.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq__item reveal">
+        <summary>Do you offer discounts?</summary>
+        <div class="faq__body">
+          <p>
+            Yes, for eligible students, military members, veterans, first responders,
+            teachers and healthcare workers. We also offer family membership packages.
+            Contact us and we'll walk you through the options.
           </p>
         </div>
       </details>
@@ -727,8 +893,9 @@
         <summary>Will there be personal training?</summary>
         <div class="faq__body">
           <p>
-            Yes. Independent trainers and coaches work out of The Forge, so you can find
-            help when you want it and train on your own when you don't.
+            Yes. We offer one-on-one personal training as well as specialized powerlifting
+            and bodybuilding coaching. Ask us about training and coaching packages. And if
+            you're a coach looking to train clients here, we'd like to hear from you.
           </p>
         </div>
       </details>
@@ -749,12 +916,12 @@
 <section class="section contact" id="contact">
   <div class="wrap">
     <div class="section__head">
-      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 09 — Get Started</p>
+      <p class="eyebrow reveal"><span class="eyebrow__rule" aria-hidden="true"></span> 10 — Get Started</p>
       <h2 class="section__title reveal" data-delay="1">Come find out<br>what you're made of.</h2>
       <p class="section__intro reveal" data-delay="2">
-        Leave your info and we'll send you the address when the lease is signed, the
-        pricing when it's set, the opening date when it's firm, and an invite to walk the
-        space before it opens. No spam, no sales calls.
+        Claim a founding membership, ask about a plan, coaching or a pass, or just get on the
+        list. We'll send you the address when the lease is signed and the opening date when
+        it's firm. No spam, no sales calls.
       </p>
     </div>
 
@@ -784,9 +951,10 @@
               <label for="fInterest">I'm interested in</label>
               <select id="fInterest" name="interest">
                 <option>Founding membership</option>
-                <option>Powerlifting</option>
-                <option>Bodybuilding / powerbuilding</option>
-                <option>General fitness</option>
+                <option>Standard membership</option>
+                <option>Flex membership</option>
+                <option>Discounts / family membership</option>
+                <option>Day or week pass</option>
                 <option>Personal training</option>
                 <option>Coaching out of The Forge</option>
                 <option>Something else</option>
@@ -907,7 +1075,9 @@
           <h3>Join</h3>
           <ul>
             <li><a href="#membership">Membership</a></li>
+            <li><a href="#founding">Founding 50</a></li>
             <li><a href="#clubs">Iron Clubs</a></li>
+            <li><a href="#coaching">Coaching</a></li>
             <li><a href="#team">The Founder</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
@@ -917,7 +1087,7 @@
           <ul>
             <li><a href="mailto:hello@theforgestrength.com">Email us</a></li>
             <li><a href="https://www.instagram.com/theforgestrengthclub/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a href="#contact">Founding list</a></li>
+            <li><a href="#contact">Join the list</a></li>
           </ul>
         </div>
       </nav>
