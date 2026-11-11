@@ -89,6 +89,70 @@
   });
 
   /* ── 2. Records board split-flap ─────────────────────────────────────── */
+  block(() => {
+    const board = $('.board');
+    if (!board || reduce) return;
+
+    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const glyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+
+    // Rolls el's text in one character at a time, then restores plain text.
+    const flap = (el, delay) => {
+      const text = el.textContent;
+      const live = Array.from(text).filter((ch) => ch.trim()).length;
+      if (!live) return;
+
+      const sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = text;
+      const row = document.createElement('span');
+      row.setAttribute('aria-hidden', 'true');
+      const cells = Array.from(text).map((ch) => {
+        const c = document.createElement('span');
+        c.className = 'fx-flap';
+        c.textContent = ch.trim() ? ch : '\u00a0';
+        row.appendChild(c);
+        return c;
+      });
+      el.textContent = '';
+      el.append(sr, row);
+
+      // Lock each cell to its final width so the row does not jitter.
+      cells.forEach((c) => { c.style.width = c.getBoundingClientRect().width + 'px'; });
+
+      let done = 0;
+      const settle = () => setTimeout(() => {
+        el.textContent = text;
+        el.classList.add('fx-flap-set');
+      }, 200);
+
+      cells.forEach((c, i) => {
+        const final = c.textContent;
+        if (final === '\u00a0') return;
+        let n = 7 + i * 2;
+        c.textContent = glyph();
+        const tick = () => {
+          n -= 1;
+          c.textContent = n > 0 ? glyph() : final;
+          c.classList.remove('is-flip');
+          void c.offsetWidth;                 // restart the flip
+          c.classList.add('is-flip');
+          if (n > 0) setTimeout(tick, 60);
+          else if (++done === live) settle();
+        };
+        setTimeout(tick, delay);
+      });
+    };
+
+    onView(board, () => {
+      $$('.board__rows li', board).forEach((row, r) => {
+        const lift = $('.board__lift', row);
+        const holder = $('.board__holder', row);
+        if (lift) flap(lift, r * 180);
+        if (holder) flap(holder, r * 180 + 260);
+      });
+    }, { threshold: 0.4 });
+  });
 
   /* ── 3. Heated-metal buttons ─────────────────────────────────────────── */
 
