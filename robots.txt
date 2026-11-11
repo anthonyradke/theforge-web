@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://anthonyradke.github.io/theforge-web/sitemap.xml
+Sitemap: https://theforgestrength.com/sitemap.xml

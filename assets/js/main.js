@@ -23,7 +23,7 @@
    ──────────────────────────────────────────────────────────────────────── */
 const CONFIG = {
   FORM_ENDPOINT: 'https://formspree.io/f/YOUR_FORM_ID',
-  CONTACT_EMAIL: 'hello@theforgestrengthclub.com'
+  CONTACT_EMAIL: 'hello@theforgestrength.com'
 };
 
 (function () {
@@ -32,6 +32,74 @@ const CONFIG = {
   const $  = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Founder photo carousel ──────────────────────────────────────────
+     Crossfades every 6s. Pauses on hover, while off screen and while the
+     tab is hidden. Arrows, keys and swipes wrap around both ends. */
+  $$('[data-carousel]').forEach((root) => {
+    const slides = $$('.carousel__slide', root);
+    if (slides.length < 2) return;
+
+    const prev   = $('.carousel__btn--prev', root);
+    const next   = $('.carousel__btn--next', root);
+    const dotBox = $('.carousel__dots', root);
+    const status = $('[data-carousel-status]', root);
+    const DELAY  = 6000;
+    let index = 0, timer = null, hovering = false, visible = true;
+
+    dotBox.innerHTML = slides.map(() => '<span></span>').join('');
+    const dots = $$('span', dotBox);
+    [prev, next, dotBox].forEach((el) => { el.hidden = false; });
+
+    // Load every slide up front so a fade never lands on a blank frame.
+    slides.forEach((img) => { img.loading = 'eager'; });
+
+    const show = (i, announce) => {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => s.classList.toggle('is-active', n === index));
+      dots.forEach((d, n) => d.classList.toggle('is-active', n === index));
+      if (announce && status) status.textContent = 'Photo ' + (index + 1) + ' of ' + slides.length;
+    };
+
+    const stop  = () => { clearInterval(timer); timer = null; };
+    const start = () => {
+      stop();
+      if (reduceMotion || hovering || !visible || document.hidden) return;
+      timer = setInterval(() => show(index + 1), DELAY);
+    };
+    const step = (d) => { show(index + d, true); start(); };
+
+    prev.addEventListener('click', () => step(-1));
+    next.addEventListener('click', () => step(1));
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    });
+
+    // Hover pause is for mice only: a tap would leave it stuck on.
+    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; stop(); } });
+    root.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovering = false; start(); } });
+    document.addEventListener('visibilitychange', start);
+
+    let x0 = null;
+    root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        start();
+      }).observe(root);
+    }
+
+    show(0);
+    start();
+  });
 
   /* ── Footer year ─────────────────────────────────────────────────────── */
   const year = $('#year');

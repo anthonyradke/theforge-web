@@ -1119,6 +1119,76 @@ em { font-style: italic; }
   border-radius: var(--r);
 }
 .founder__photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Founder photo carousel: stacked slides that crossfade. */
+.carousel { position: relative; background: var(--ink); }
+.carousel__track { position: absolute; inset: 0; }
+.founder__photo .carousel__slide {
+  position: absolute;
+  inset: 0;
+  object-position: var(--pos, 50% 30%);
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.2s ease, transform 6s ease-out;
+}
+.founder__photo .carousel__slide.is-active { opacity: 1; transform: scale(1); }
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%;
+  background: rgba(10,10,11,.55);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+  opacity: .75;
+  transition: opacity .25s ease, background .25s ease, border-color .25s ease;
+}
+.carousel__btn--prev { left: .75rem; }
+.carousel__btn--next { right: .75rem; }
+.carousel__btn svg { width: 1.2rem; height: 1.2rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.carousel:hover .carousel__btn,
+.carousel__btn:focus-visible { opacity: 1; }
+@media (hover: hover) {
+  .carousel__btn:hover { background: var(--ember); border-color: var(--ember); }
+}
+.carousel__btn:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+.carousel__dots {
+  position: absolute;
+  left: 50%;
+  bottom: .9rem;
+  z-index: 2;
+  display: flex;
+  gap: .45rem;
+  padding: .4rem .55rem;
+  border-radius: 999px;
+  background: rgba(10,10,11,.5);
+  transform: translateX(-50%);
+}
+.carousel__dots span {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.45);
+  transition: width .4s ease, background .4s ease;
+}
+.carousel__dots span.is-active { width: 1.4rem; background: var(--ember); }
+.carousel__btn[hidden], .carousel__dots[hidden] { display: none; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 .founder__role {
   margin-bottom: .5rem;
   color: var(--ember);
@@ -1608,7 +1678,7 @@ em { font-style: italic; }
 
   .about__media { order: -1; }
   .pullquote { position: static; }
-  .founder__photo { max-width: 340px; aspect-ratio: 4 / 3; }
+  .founder__photo { width: 100%; max-width: 380px; margin-inline: auto; }
   .coaching__cta { padding-left: 0; border-left: 0; padding-top: 1.25rem; border-top: var(--hair); }
 
   .pillars--three { grid-template-columns: 1fr; }

@@ -43,8 +43,8 @@ Found while testing on phones:
 |---|---|
 | `index.html` | Every section of the site |
 | `assets/css/styles.css` | Styles |
-| `assets/js/main.js` | Menu, scroll effects, counters, contact form |
-| `assets/img/` | Favicon and link preview image |
+| `assets/js/main.js` | Menu, scroll effects, counters, founder photo carousel, contact form |
+| `assets/img/` | Logo, icons, link preview image, founder photos |
 
 ## Running locally
 
