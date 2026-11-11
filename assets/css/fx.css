@@ -110,6 +110,35 @@ body.nav-open .fx-progress { opacity: 0; }
 }
 
 /* ── 4. Founding 50 plate rack ─────────────────────────────────────────── */
+.fx-rack {
+  display: grid;
+  grid-template-columns: repeat(25, 1fr);
+  gap: 4px 3px;
+  max-width: 26rem;
+  margin-top: 1.6rem;
+}
+.fx-rack i {
+  aspect-ratio: 1 / 2.1;
+  border: 1px solid var(--steel-600);
+  border-radius: 2px;
+  background: var(--steel-850);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .3s, transform .45s cubic-bezier(.34, 1.56, .64, 1);
+  transition-delay: calc(var(--i) * 22ms);
+}
+.fx-rack.is-on i { opacity: 1; transform: none; }
+.fx-rack i.is-claimed {
+  border-color: var(--ember);
+  background: linear-gradient(180deg, var(--ember-hot), var(--ember-deep));
+}
+.fx-rack i.is-next {
+  border-color: var(--ember);
+  animation: fxRackNext 1.8s ease-in-out infinite;
+}
+@keyframes fxRackNext {
+  50% { background: rgba(216, 35, 42, .4); box-shadow: 0 0 10px 1px var(--ember-glow); }
+}
 
 /* ── 5. Weld-line section dividers ─────────────────────────────────────── */
 

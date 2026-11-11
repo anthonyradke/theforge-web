@@ -184,6 +184,35 @@
   });
 
   /* ── 4. Founding 50 plate rack ───────────────────────────────────────── */
+  block(() => {
+    const host = $('.f50__cta');
+    if (!host) return;
+
+    // FOUNDING lives in main.js. Until a real count is tracked there, every
+    // slot shows as open rather than inventing a number.
+    const F = typeof FOUNDING !== 'undefined' ? FOUNDING : {};
+    const total = F.TOTAL || 50;
+    const tracked = Number.isInteger(F.SPOTS_LEFT) && F.SPOTS_LEFT >= 0;
+    const claimed = tracked ? total - Math.min(F.SPOTS_LEFT, total) : 0;
+
+    const rack = document.createElement('div');
+    rack.className = 'fx-rack';
+    rack.setAttribute('role', 'img');
+    rack.setAttribute('aria-label', tracked
+      ? `${claimed} of ${total} founding memberships claimed`
+      : `${total} founding memberships`);
+    for (let i = 0; i < total; i++) {
+      const slot = document.createElement('i');
+      if (i < claimed) slot.className = 'is-claimed';
+      else if (i === claimed) slot.className = 'is-next';
+      slot.style.setProperty('--i', i);
+      rack.appendChild(slot);
+    }
+    host.insertAdjacentElement('afterend', rack);
+
+    if (reduce) { rack.classList.add('is-on'); return; }
+    onView(rack, () => rack.classList.add('is-on'), { threshold: 0.5 });
+  });
 
   /* ── 5. Weld-line section dividers ───────────────────────────────────── */
 
