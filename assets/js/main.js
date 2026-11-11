@@ -1,5 +1,5 @@
 /* =========================================================================
-   THE FORGE STRENGTH CLUB — main.js
+   THE FORGE STRENGTH CLUB: main.js
    No dependencies. No build step. Runs fine on GitHub Pages.
    -------------------------------------------------------------------------
    ▸ CONFIG below is the only part you normally need to edit.
@@ -8,15 +8,15 @@
 /* ── CONFIG ─────────────────────────────────────────────────────────────
    Contact form delivery.
 
-   GitHub Pages is static hosting — it cannot process a form submission by
+   GitHub Pages is static hosting. It cannot process a form submission by
    itself. Two options, both free:
 
-   1) RECOMMENDED — Formspree (https://formspree.io)
+   1) RECOMMENDED: Formspree (https://formspree.io)
       Create a free form, copy the endpoint it gives you (it looks like
       https://formspree.io/f/abcdwxyz) and paste it below. Submissions then
       arrive in the gym's inbox with no page reload.
 
-   2) DO NOTHING — while the endpoint below is left as-is, the form falls
+   2) DO NOTHING: while the endpoint below is left as-is, the form falls
       back to opening the visitor's email app with everything pre-filled and
       addressed to CONTACT_EMAIL. It works today, it just costs the visitor
       one extra click.
@@ -578,7 +578,7 @@ const FOUNDING = {
       const body = [
         `Name: ${data.name}`,
         `Email: ${data.email}`,
-        `Phone: ${data.phone || '—'}`,
+        `Phone: ${data.phone || 'not given'}`,
         `Interested in: ${data.interest}`,
         '',
         data.message || '(no message)'
@@ -586,12 +586,12 @@ const FOUNDING = {
 
       const href =
         `mailto:${CONFIG.CONTACT_EMAIL}` +
-        `?subject=${encodeURIComponent(data.interest + ' — ' + data.name)}` +
+        `?subject=${encodeURIComponent(data.interest + ': ' + data.name)}` +
         `&body=${encodeURIComponent(body)}`;
 
       window.location.href = href;
       setStatus(
-        'Your email app should be opening with everything filled in — just hit send. ' +
+        'Your email app should be opening with everything filled in. Just hit send. ' +
         `If nothing happened, email us directly at ${CONFIG.CONTACT_EMAIL}.`,
         'ok'
       );

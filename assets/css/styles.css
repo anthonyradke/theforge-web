@@ -96,7 +96,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Fine forge-grain over the whole page — subtle, sells the "distressed" brand */
+/* Fine forge-grain over the whole page: subtle, sells the "distressed" brand */
 body::after {
   content: "";
   position: fixed;
@@ -743,7 +743,7 @@ em { font-style: italic; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  /* Same clipping fix as .club__number — see the note there. */
+  /* Same clipping fix as .club__number; see the note there. */
   padding-block: .3em;
   margin-block: -.3em;
   margin-bottom: calc(.35rem - .3em);
@@ -856,7 +856,7 @@ em { font-style: italic; }
 .media-frame:not(.media-frame--tall) { aspect-ratio: 1 / 1; }
 .media-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Photo placeholder — replace the .media-frame__ph div with an <img> */
+/* Photo placeholder: replace the .media-frame__ph div with an <img> */
 .media-frame__ph {
   display: grid;
   place-items: center;
@@ -1173,7 +1173,7 @@ em { font-style: italic; }
   color: transparent;
   filter: drop-shadow(0 3px 10px rgba(0,0,0,.6));
   /* background-clip:text only paints inside the element's box, and Anton's
-     glyphs overflow a .88 line box top and bottom — which sliced the tops and
+     glyphs overflow a .88 line box top and bottom, which sliced the tops and
      bottoms off digits like 0 and 6. Padding grows the paint area; the matching
      negative margin keeps the layout spacing exactly where it was. */
   padding-block: .4em;
@@ -1742,7 +1742,7 @@ em { font-style: italic; }
   line-height: 1.4;
 }
 
-/* honeypot — visually hidden, still focusable by bots */
+/* honeypot: visually hidden, still focusable by bots */
 .hp {
   position: absolute;
   width: 1px; height: 1px;
@@ -1963,13 +1963,13 @@ em { font-style: italic; }
   /* The page-wide grain is a fixed, full-viewport overlay. Mobile browsers
      size fixed elements to the large viewport, so as the URL bar shows and
      hides it stops lining up and leaves a faintly darker band across the
-     bottom of the screen. It's invisible at this size anyway — drop it, and
+     bottom of the screen. It's invisible at this size anyway, so drop it, and
      save the constant repaint while scrolling. */
   body::after { display: none; }
 
   /* Mobile drawer
      .site-header is position:sticky with a z-index, so it creates a stacking
-     context — .nav's z-index is resolved INSIDE it and can never beat the
+     context, so .nav's z-index is resolved INSIDE it and can never beat the
      backdrop below. Lifting the whole header above the backdrop while the menu
      is open is what puts the drawer (and the close button) on top. */
   .nav {
@@ -2018,7 +2018,7 @@ em { font-style: italic; }
   .nav-toggle { display: grid; place-items: center; z-index: 57; }
 
   /* Background scroll is stopped with overflow plus a touchmove guard in
-     main.js — deliberately NOT position:fixed. Taking the body out of flow
+     main.js, deliberately NOT position:fixed. Taking the body out of flow
      resets the scroll to 0 and needs restoring afterwards, and any drift in
      that restore dumps you somewhere else on the page entirely. Leaving the
      page where it is means there is nothing to restore and nothing to drift. */
@@ -2082,7 +2082,7 @@ em { font-style: italic; }
   .announce__inner { flex-wrap: wrap; gap: .35rem .7rem; }
   .announce p { font-size: .78rem; }
   .announce__link { font-size: .7rem; }
-  /* Keep the bar to one tight line on phones — the detail lives in the page. */
+  /* Keep the bar to one tight line on phones; the detail lives in the page. */
   .announce__more { display: none; }
 
   .form__row { grid-template-columns: 1fr; }
@@ -2104,7 +2104,7 @@ em { font-style: italic; }
   a, button, summary, .btn, label { -webkit-tap-highlight-color: transparent; }
 
   /* Grow undersized hit areas. Padding rather than min-height so nothing
-     shifts position — these were 13–23px tall, well under a fingertip. */
+     shifts position; these were 13–23px tall, well under a fingertip. */
   .announce__link  { padding-block: .5rem; }
   .link-arrow      { padding-block: .55rem; }
   .info-list a     { display: inline-block; padding-block: .35rem; }
