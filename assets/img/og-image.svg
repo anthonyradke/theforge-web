@@ -21,9 +21,7 @@
   <rect width="1200" height="630" fill="url(#glow)"/>
 
   <!-- mark -->
-  <g transform="translate(866 178.6) scale(1.32)">
-    <path fill="#F3F1EC" fill-rule="evenodd" d="M6 72H72V40H84V18H116V40H128V72H192V90C166 92 138 102 128 126V138C130 148 142 152 158 154L162 172H38L42 154C58 152 70 148 72 138V126C68 106 54 94 30 85ZM96 26H104V46H118V56H104V118H96V56H82V46H96ZM182 79C160 81 138 90 132 108C142 94 162 87 182 85ZM28 77C46 80 60 90 67 106C58 94 46 86 28 81Z"/>
-  </g>
+  <image href="logo.png" x="840" y="190" width="300" height="226"/>
 
   <g font-family="Anton, 'Arial Narrow', Impact, sans-serif" text-transform="uppercase">
     <rect x="84" y="140" width="54" height="4" fill="#D8232A"/>
