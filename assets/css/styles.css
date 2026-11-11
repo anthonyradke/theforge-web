@@ -1452,7 +1452,7 @@ em { font-style: italic; }
 .panel__title { margin-bottom: 1rem; font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
 .panel p:not(.panel__k):not(.panel__meta) { color: var(--bone-dim); font-size: .95rem; line-height: 1.68; }
 .panel .ticks { margin-bottom: 1.5rem; }
-.panel .link-arrow { margin-top: auto; align-self: flex-start; }
+.panel .link-arrow { margin-top: auto; padding-top: 1.25rem; align-self: flex-start; }
 .panel--soon { border-style: dashed; border-color: var(--steel-600); }
 .panel__meta {
   margin: auto 0 0;
