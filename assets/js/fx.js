@@ -1,5 +1,5 @@
 /* =========================================================================
-   THE FORGE STRENGTH CLUB — fx.js
+   THE FORGE STRENGTH CLUB: fx.js
    Decorative animation layer. Loaded after main.js and paired with
    assets/css/fx.css. Every numbered block is independent: removing a block
    here and the block with the same number in fx.css removes that effect and
