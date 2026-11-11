@@ -234,6 +234,16 @@ body.nav-open .fx-progress { opacity: 0; }
 @media print { .f50.fx-live::after { display: none; } }
 
 /* ── 7. Contact section embers ─────────────────────────────────────────── */
+.fx-embers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.contact > .wrap { position: relative; z-index: 1; }
+@media print { .fx-embers { display: none; } }
 
 /* ── 8. Quenched section headings ──────────────────────────────────────── */
 

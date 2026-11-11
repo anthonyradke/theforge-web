@@ -259,6 +259,77 @@
   });
 
   /* ── 7. Contact section embers ───────────────────────────────────────── */
+  block(() => {
+    const sec = $('#contact');
+    if (!sec || reduce || !hasIO) return;
+
+    const cv = document.createElement('canvas');
+    cv.className = 'fx-embers';
+    cv.setAttribute('aria-hidden', 'true');
+    sec.insertBefore(cv, sec.firstChild);
+    const ctx = cv.getContext('2d');
+    let w = 0, h = 0, raf = null, visible = false, parts = [];
+
+    const spawn = (scatter) => ({
+      x: Math.random() * w,
+      y: Math.random() * h + 20,
+      r: 0.6 + Math.random() * 1.5,
+      vy: -(0.15 + Math.random() * 0.35),
+      vx: (Math.random() - 0.5) * 0.15,
+      sway: Math.random() * 6.28,
+      life: scatter ? Math.random() : 1,
+      decay: 0.0012 + Math.random() * 0.0018
+    });
+
+    // Sparse on purpose: about 10 on a phone, 28 at most on a wide screen.
+    const size = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = cv.offsetWidth;
+      h = cv.offsetHeight;
+      cv.width = w * dpr;
+      cv.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.round(Math.min(Math.max(w / 55, 10), 28));
+      parts = Array.from({ length: count }, () => spawn(true));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.sway += 0.02;
+        p.x += p.vx + Math.sin(p.sway) * 0.12;
+        p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0 || p.y < -10) { parts[i] = spawn(false); continue; }
+        const a = Math.sin(p.life * Math.PI) * 0.7;
+        ctx.fillStyle = `rgba(255, 74, 52, ${(a * 0.18).toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 3.2, 0, 6.2832);
+        ctx.fill();
+        ctx.fillStyle = `rgba(255, 150, 90, ${a.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    // Only runs while the section is on screen and the tab is in front.
+    const sync = () => {
+      const run = visible && !document.hidden;
+      if (run && !raf) raf = requestAnimationFrame(draw);
+      if (!run && raf) { cancelAnimationFrame(raf); raf = null; }
+    };
+
+    let timer;
+    const resized = () => { clearTimeout(timer); timer = setTimeout(size, 180); };
+    window.addEventListener('resize', resized);
+    if ('ResizeObserver' in window) new ResizeObserver(resized).observe(sec);
+    document.addEventListener('visibilitychange', sync);
+    whileVisible(cv, () => { visible = true; sync(); }, () => { visible = false; sync(); });
+    size();
+  });
 
   /* ── 8. Quenched section headings (CSS only) ─────────────────────────── */
 
