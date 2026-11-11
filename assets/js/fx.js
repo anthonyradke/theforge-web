@@ -334,32 +334,6 @@
   /* ── 8. Quenched section headings (CSS only) ─────────────────────────── */
 
   /* ── 9. Founder barbell and credentials ──────────────────────────────── */
-  block(() => {
-    const name = $('.founder__name');
-    const creds = $('.founder__creds');
-    if (!name || !creds) return;
-    const items = $$('li', creds);
-
-    // A bar under the founder's name, with one plate per credential.
-    const bar = document.createElement('div');
-    bar.className = 'fx-bar';
-    bar.setAttribute('aria-hidden', 'true');
-    bar.innerHTML =
-      '<span class="fx-bar__shaft"></span><span class="fx-bar__collar"></span>' +
-      items.map((_, i) => `<i style="--i:${i}"></i>`).join('') +
-      '<span class="fx-bar__end"></span>';
-    name.insertAdjacentElement('afterend', bar);
-
-    if (reduce) { bar.classList.add('is-on'); return; }
-
-    // Credentials land in step with the plates.
-    items.forEach((li, i) => li.style.setProperty('--i', i));
-    creds.classList.add('fx-creds');
-    onView(bar, () => {
-      bar.classList.add('is-on');
-      creds.classList.add('is-on');
-    }, { threshold: 1 });
-  });
 
   /* ── End ─────────────────────────────────────────────────────────────── */
 })();
